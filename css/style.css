@@ -1,0 +1,24 @@
+.row1 {
+	height: 100%;
+	width: 100%;
+}
+ .col-lg-1 {
+ 	height: 100%;
+ 	margin-left: -20px;
+ }
+
+ .vertical-menu {
+ 	height: 100%
+ 	width 100%; 
+  
+ }
+
+
+.main-container-fluid{
+	height: 100%;
+	width: 100%;
+}
+
+.CollapseNavbar{
+height: 100%;
+}
