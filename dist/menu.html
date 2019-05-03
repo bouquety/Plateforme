@@ -1,0 +1,60 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title> Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/menu.2b646473.css">
+
+<script src="/menu.2b646473.js"></script></head>
+<body>
+    <div class="card">
+        <div class="card-header">
+            Infos parcellaire
+          </div>
+        <div class="card-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="2"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nature</td>
+                        <td><select class="form-control" id="natureparcelle" name="NatureParcelle">
+                            <option selected="selected"> Cliquer sur une Parcelle pour visualiser sa Nature</option>
+                            <option> Cliquer sur une Parcelle pour visualiser sa Nature</option>
+                            <option> Cliquer sur une Parcelle pour visualiser sa Nature</option>
+                  </select></td>
+                    </tr>
+                    <tr>
+                        <td>Logement</td>
+                        <td>                        <textarea class="form-control" rows="1" id="logement" name="logement"> Cliquer sur une parcelle pour visualier le nombre de logement</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><a> Surface </a></td>
+<td>                              <textarea class="form-control" rows="1" name="ces" id="ces" type="text" placeholder="Cliquer sur une parcelle pour visualier la localisation" readonly=""></textarea>
+</td>
+                    </tr>
+                </tbody>
+            </table>
+        
+     <button type="submit" class="btn btn-primary" id="envoi">Modifier</button>
+                    <button type="submit" class="btn btn-primary" id="ajout">Ajouter</button>
+                    <button type="button" class="btn btn-danger" id="suppr">Supprimer</button>    
+                  </div>
+      </div>
+
+</body>
+</html>

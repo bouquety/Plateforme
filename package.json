@@ -1,0 +1,26 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "geojson": "^0.5.0",
+    "geoportal-extensions-openlayers": "^2.1.2",
+    "handlebars": "^4.1.2",
+    "ol": "^5.3.2",
+    "openlayers": "^4.4.2",
+    "request": "^2.88.0",
+    "xmldom": "^0.1.27"
+  },
+  "devDependencies": {
+    "cssnano": "^4.1.10",
+    "parcel-bundler": "^1.12.3"
+  }
+}
