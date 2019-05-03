@@ -96,16 +96,7 @@
   /* LEGENDE */
   /* ------------------------------------------------------------------ */
   
-  .legende{
-  width: 18%;
-  position: absolute;
-  top: 175px;
-  left: 1540px;
-  padding: 5px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  visibility: hidden;
-  }
+ 
   .carreun{
   width:30px;
   height:30px;
@@ -133,11 +124,23 @@
   height: 100%;
   
   }
+
+  a#rechercher{
+    margin-top: 230px;
+    border-top: none; 
+    color: rgb(255, 255, 255);
+  }
   /* ------------------------------------------------------------------ */
   /* MEDIA */
   /* ------------------------------------------------------------------ */
   
-  
+  @media (max-width: 1300px){
+  div#card {
+      LEFT: 940px;
+      top: 130px;
+  }
+
+}
   /* ------------------------------------------------------------------ */
   /* MEDIA */
   /* ------------------------------------------------------------------ */
@@ -149,7 +152,7 @@
   
   }
   
-  
+ 
   .menu-content{
   display: block; /*Afficher les éléments du menu l'un en dessous de l'autre*/
   }
@@ -174,11 +177,21 @@
   
   
   
-  @media (min-width: 767px) { /*Jusqu'a 767 px on fais : */
+  @media (max-width: 1920px) { /*Gigantesque écran : */
   #hamburger{
 	display: none;
   }
   
+  .card{
+    width: 18%;
+    position: absolute;
+    top: 175px;
+    left: 1540px;
+    padding: 5px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    display: none;
+    }
   .content{
   
 	left: 0;

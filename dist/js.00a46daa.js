@@ -58740,10 +58740,10 @@ function test(datas) {
 
   map.on("click", function (evt) {
     map.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
-      var etat = document.getElementById('legende').style.visibility;
+      var etat = document.getElementById('card').style.display;
 
-      if (etat != "hidden") {
-        document.getElementById('legende').style.visibility = "visible";
+      if (etat != "none") {
+        document.getElementById('card').style.display = "inline";
       } // Création de la liste de nature des parcelles 
 
 
@@ -58991,7 +58991,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56696" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55332" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -162,10 +162,10 @@ $('input#Cadastre').click(function(){
 //Interaction avec la carte
 map.on("click", function (evt) {
   map.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
-    var etat = document.getElementById('legende').style.visibility;
-    if(etat!="hidden"){
+    var etat = document.getElementById('card').style.display;
+    if(etat!="none"){
 
-    document.getElementById('legende').style.visibility="visible";
+    document.getElementById('card').style.display="inline";
  
     }
     
