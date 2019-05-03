@@ -1,1 +1,0 @@
-{"version":3,"sources":["menu.css"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA","file":"menu.2b646473.css","sourceRoot":"..","sourcesContent":["table,\r\ntd {\r\n    border: 1px solid #333;\r\n}\r\n\r\nthead,\r\ntfoot {\r\n    background-color: #333;\r\n    color: #fff;\r\n}\r\n"]}

@@ -126,7 +126,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.dependencies = exports.devDependencies = exports.scripts = exports.repository = exports.module = exports.jsdelivr = exports.unpkg = exports.main = exports.author = exports.license = exports.homepage = exports.keywords = exports.description = exports.version = exports.name = void 0;
 var name = "d3";
 exports.name = name;
-var version = "5.7.0";
+var version = "5.9.2";
 exports.version = version;
 var description = "Data-Driven Documents";
 exports.description = description;
@@ -1818,30 +1818,13 @@ function _default(select) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = _default;
 
-var matcher = function (selector) {
+function _default(selector) {
   return function () {
     return this.matches(selector);
   };
-};
-
-if (typeof document !== "undefined") {
-  var element = document.documentElement;
-
-  if (!element.matches) {
-    var vendorMatches = element.webkitMatchesSelector || element.msMatchesSelector || element.mozMatchesSelector || element.oMatchesSelector;
-
-    matcher = function (selector) {
-      return function () {
-        return vendorMatches.call(this, selector);
-      };
-    };
-  }
 }
-
-var _default = matcher;
-exports.default = _default;
 },{}],"C3/c3/node_modules/d3-selection/src/selection/filter.js":[function(require,module,exports) {
 "use strict";
 
@@ -2083,7 +2066,24 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _default() {
   return new _index.Selection(this._exit || this._groups.map(_sparse.default), this._parents);
 }
-},{"./sparse":"C3/c3/node_modules/d3-selection/src/selection/sparse.js","./index":"C3/c3/node_modules/d3-selection/src/selection/index.js"}],"C3/c3/node_modules/d3-selection/src/selection/merge.js":[function(require,module,exports) {
+},{"./sparse":"C3/c3/node_modules/d3-selection/src/selection/sparse.js","./index":"C3/c3/node_modules/d3-selection/src/selection/index.js"}],"C3/c3/node_modules/d3-selection/src/selection/join.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+function _default(onenter, onupdate, onexit) {
+  var enter = this.enter(),
+      update = this,
+      exit = this.exit();
+  enter = typeof onenter === "function" ? onenter(enter) : enter.append(onenter + "");
+  if (onupdate != null) update = onupdate(update);
+  if (onexit == null) exit.remove();else onexit(exit);
+  return enter && update ? enter.merge(update).order() : update;
+}
+},{}],"C3/c3/node_modules/d3-selection/src/selection/merge.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2120,7 +2120,7 @@ function _default() {
   for (var groups = this._groups, j = -1, m = groups.length; ++j < m;) {
     for (var group = groups[j], i = group.length - 1, next = group[i], node; --i >= 0;) {
       if (node = group[i]) {
-        if (next && next !== node.nextSibling) next.parentNode.insertBefore(node, next);
+        if (next && node.compareDocumentPosition(next) ^ 4) next.parentNode.insertBefore(node, next);
         next = node;
       }
     }
@@ -2867,6 +2867,8 @@ var _enter = _interopRequireDefault(require("./enter"));
 
 var _exit = _interopRequireDefault(require("./exit"));
 
+var _join = _interopRequireDefault(require("./join"));
+
 var _merge = _interopRequireDefault(require("./merge"));
 
 var _order = _interopRequireDefault(require("./order"));
@@ -2937,6 +2939,7 @@ Selection.prototype = selection.prototype = {
   data: _data.default,
   enter: _enter.default,
   exit: _exit.default,
+  join: _join.default,
   merge: _merge.default,
   order: _order.default,
   sort: _sort.default,
@@ -2964,7 +2967,7 @@ Selection.prototype = selection.prototype = {
 };
 var _default = selection;
 exports.default = _default;
-},{"./select":"C3/c3/node_modules/d3-selection/src/selection/select.js","./selectAll":"C3/c3/node_modules/d3-selection/src/selection/selectAll.js","./filter":"C3/c3/node_modules/d3-selection/src/selection/filter.js","./data":"C3/c3/node_modules/d3-selection/src/selection/data.js","./enter":"C3/c3/node_modules/d3-selection/src/selection/enter.js","./exit":"C3/c3/node_modules/d3-selection/src/selection/exit.js","./merge":"C3/c3/node_modules/d3-selection/src/selection/merge.js","./order":"C3/c3/node_modules/d3-selection/src/selection/order.js","./sort":"C3/c3/node_modules/d3-selection/src/selection/sort.js","./call":"C3/c3/node_modules/d3-selection/src/selection/call.js","./nodes":"C3/c3/node_modules/d3-selection/src/selection/nodes.js","./node":"C3/c3/node_modules/d3-selection/src/selection/node.js","./size":"C3/c3/node_modules/d3-selection/src/selection/size.js","./empty":"C3/c3/node_modules/d3-selection/src/selection/empty.js","./each":"C3/c3/node_modules/d3-selection/src/selection/each.js","./attr":"C3/c3/node_modules/d3-selection/src/selection/attr.js","./style":"C3/c3/node_modules/d3-selection/src/selection/style.js","./property":"C3/c3/node_modules/d3-selection/src/selection/property.js","./classed":"C3/c3/node_modules/d3-selection/src/selection/classed.js","./text":"C3/c3/node_modules/d3-selection/src/selection/text.js","./html":"C3/c3/node_modules/d3-selection/src/selection/html.js","./raise":"C3/c3/node_modules/d3-selection/src/selection/raise.js","./lower":"C3/c3/node_modules/d3-selection/src/selection/lower.js","./append":"C3/c3/node_modules/d3-selection/src/selection/append.js","./insert":"C3/c3/node_modules/d3-selection/src/selection/insert.js","./remove":"C3/c3/node_modules/d3-selection/src/selection/remove.js","./clone":"C3/c3/node_modules/d3-selection/src/selection/clone.js","./datum":"C3/c3/node_modules/d3-selection/src/selection/datum.js","./on":"C3/c3/node_modules/d3-selection/src/selection/on.js","./dispatch":"C3/c3/node_modules/d3-selection/src/selection/dispatch.js"}],"C3/c3/node_modules/d3-selection/src/select.js":[function(require,module,exports) {
+},{"./select":"C3/c3/node_modules/d3-selection/src/selection/select.js","./selectAll":"C3/c3/node_modules/d3-selection/src/selection/selectAll.js","./filter":"C3/c3/node_modules/d3-selection/src/selection/filter.js","./data":"C3/c3/node_modules/d3-selection/src/selection/data.js","./enter":"C3/c3/node_modules/d3-selection/src/selection/enter.js","./exit":"C3/c3/node_modules/d3-selection/src/selection/exit.js","./join":"C3/c3/node_modules/d3-selection/src/selection/join.js","./merge":"C3/c3/node_modules/d3-selection/src/selection/merge.js","./order":"C3/c3/node_modules/d3-selection/src/selection/order.js","./sort":"C3/c3/node_modules/d3-selection/src/selection/sort.js","./call":"C3/c3/node_modules/d3-selection/src/selection/call.js","./nodes":"C3/c3/node_modules/d3-selection/src/selection/nodes.js","./node":"C3/c3/node_modules/d3-selection/src/selection/node.js","./size":"C3/c3/node_modules/d3-selection/src/selection/size.js","./empty":"C3/c3/node_modules/d3-selection/src/selection/empty.js","./each":"C3/c3/node_modules/d3-selection/src/selection/each.js","./attr":"C3/c3/node_modules/d3-selection/src/selection/attr.js","./style":"C3/c3/node_modules/d3-selection/src/selection/style.js","./property":"C3/c3/node_modules/d3-selection/src/selection/property.js","./classed":"C3/c3/node_modules/d3-selection/src/selection/classed.js","./text":"C3/c3/node_modules/d3-selection/src/selection/text.js","./html":"C3/c3/node_modules/d3-selection/src/selection/html.js","./raise":"C3/c3/node_modules/d3-selection/src/selection/raise.js","./lower":"C3/c3/node_modules/d3-selection/src/selection/lower.js","./append":"C3/c3/node_modules/d3-selection/src/selection/append.js","./insert":"C3/c3/node_modules/d3-selection/src/selection/insert.js","./remove":"C3/c3/node_modules/d3-selection/src/selection/remove.js","./clone":"C3/c3/node_modules/d3-selection/src/selection/clone.js","./datum":"C3/c3/node_modules/d3-selection/src/selection/datum.js","./on":"C3/c3/node_modules/d3-selection/src/selection/on.js","./dispatch":"C3/c3/node_modules/d3-selection/src/selection/dispatch.js"}],"C3/c3/node_modules/d3-selection/src/select.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5570,7 +5573,7 @@ var _d3Dispatch = require("d3-dispatch");
 
 var _d3Timer = require("d3-timer");
 
-var emptyOn = (0, _d3Dispatch.dispatch)("start", "end", "interrupt");
+var emptyOn = (0, _d3Dispatch.dispatch)("start", "end", "cancel", "interrupt");
 var emptyTween = [];
 var CREATED = 0;
 exports.CREATED = CREATED;
@@ -5615,7 +5618,7 @@ function init(node, id) {
 
 function set(node, id) {
   var schedule = get(node, id);
-  if (schedule.state > STARTING) throw new Error("too late; already started");
+  if (schedule.state > STARTED) throw new Error("too late; already running");
   return schedule;
 }
 
@@ -5652,19 +5655,17 @@ function create(node, id, self) {
       // chance to tick (and possibly end); see d3/d3-transition#54!
 
       if (o.state === STARTED) return (0, _d3Timer.timeout)(start); // Interrupt the active transition, if any.
-      // Dispatch the interrupt event.
 
       if (o.state === RUNNING) {
         o.state = ENDED;
         o.timer.stop();
         o.on.call("interrupt", node, node.__data__, o.index, o.group);
         delete schedules[i];
-      } // Cancel any pre-empted transitions. No interrupt event is dispatched
-      // because the cancelled transitions never started. Note that this also
-      // removes this transition from the pending list!
+      } // Cancel any pre-empted transitions.
       else if (+i < id) {
           o.state = ENDED;
           o.timer.stop();
+          o.on.call("cancel", node, node.__data__, o.index, o.group);
           delete schedules[i];
         }
     } // Defer the first tick to end of the current frame; see d3/d3#1576.
@@ -5705,7 +5706,7 @@ function create(node, id, self) {
         n = tween.length;
 
     while (++i < n) {
-      tween[i].call(null, t);
+      tween[i].call(node, t);
     } // Dispatch the end event.
 
 
@@ -5754,7 +5755,7 @@ function _default(node, name) {
     active = schedule.state > _schedule.STARTING && schedule.state < _schedule.ENDING;
     schedule.state = _schedule.ENDED;
     schedule.timer.stop();
-    if (active) schedule.on.call("interrupt", node, node.__data__, schedule.index, schedule.group);
+    schedule.on.call(active ? "interrupt" : "cancel", node, node.__data__, schedule.index, schedule.group);
     delete schedules[i];
   }
 
@@ -5917,47 +5918,55 @@ function attrRemoveNS(fullname) {
 }
 
 function attrConstant(name, interpolate, value1) {
-  var value00, interpolate0;
+  var string00,
+      string1 = value1 + "",
+      interpolate0;
   return function () {
-    var value0 = this.getAttribute(name);
-    return value0 === value1 ? null : value0 === value00 ? interpolate0 : interpolate0 = interpolate(value00 = value0, value1);
+    var string0 = this.getAttribute(name);
+    return string0 === string1 ? null : string0 === string00 ? interpolate0 : interpolate0 = interpolate(string00 = string0, value1);
   };
 }
 
 function attrConstantNS(fullname, interpolate, value1) {
-  var value00, interpolate0;
+  var string00,
+      string1 = value1 + "",
+      interpolate0;
   return function () {
-    var value0 = this.getAttributeNS(fullname.space, fullname.local);
-    return value0 === value1 ? null : value0 === value00 ? interpolate0 : interpolate0 = interpolate(value00 = value0, value1);
+    var string0 = this.getAttributeNS(fullname.space, fullname.local);
+    return string0 === string1 ? null : string0 === string00 ? interpolate0 : interpolate0 = interpolate(string00 = string0, value1);
   };
 }
 
 function attrFunction(name, interpolate, value) {
-  var value00, value10, interpolate0;
+  var string00, string10, interpolate0;
   return function () {
-    var value0,
-        value1 = value(this);
+    var string0,
+        value1 = value(this),
+        string1;
     if (value1 == null) return void this.removeAttribute(name);
-    value0 = this.getAttribute(name);
-    return value0 === value1 ? null : value0 === value00 && value1 === value10 ? interpolate0 : interpolate0 = interpolate(value00 = value0, value10 = value1);
+    string0 = this.getAttribute(name);
+    string1 = value1 + "";
+    return string0 === string1 ? null : string0 === string00 && string1 === string10 ? interpolate0 : (string10 = string1, interpolate0 = interpolate(string00 = string0, value1));
   };
 }
 
 function attrFunctionNS(fullname, interpolate, value) {
-  var value00, value10, interpolate0;
+  var string00, string10, interpolate0;
   return function () {
-    var value0,
-        value1 = value(this);
+    var string0,
+        value1 = value(this),
+        string1;
     if (value1 == null) return void this.removeAttributeNS(fullname.space, fullname.local);
-    value0 = this.getAttributeNS(fullname.space, fullname.local);
-    return value0 === value1 ? null : value0 === value00 && value1 === value10 ? interpolate0 : interpolate0 = interpolate(value00 = value0, value10 = value1);
+    string0 = this.getAttributeNS(fullname.space, fullname.local);
+    string1 = value1 + "";
+    return string0 === string1 ? null : string0 === string00 && string1 === string10 ? interpolate0 : (string10 = string1, interpolate0 = interpolate(string00 = string0, value1));
   };
 }
 
 function _default(name, value) {
   var fullname = (0, _d3Selection.namespace)(name),
       i = fullname === "transform" ? _d3Interpolate.interpolateTransformSvg : _interpolate.default;
-  return this.attrTween(name, typeof value === "function" ? (fullname.local ? attrFunctionNS : attrFunction)(fullname, i, (0, _tween.tweenValue)(this, "attr." + name, value)) : value == null ? (fullname.local ? attrRemoveNS : attrRemove)(fullname) : (fullname.local ? attrConstantNS : attrConstant)(fullname, i, value + ""));
+  return this.attrTween(name, typeof value === "function" ? (fullname.local ? attrFunctionNS : attrFunction)(fullname, i, (0, _tween.tweenValue)(this, "attr." + name, value)) : value == null ? (fullname.local ? attrRemoveNS : attrRemove)(fullname) : (fullname.local ? attrConstantNS : attrConstant)(fullname, i, value));
 }
 },{"d3-interpolate":"C3/c3/node_modules/d3-interpolate/src/index.js","d3-selection":"C3/c3/node_modules/d3-selection/src/index.js","./tween":"C3/c3/node_modules/d3-transition/src/transition/tween.js","./interpolate":"C3/c3/node_modules/d3-transition/src/transition/interpolate.js"}],"C3/c3/node_modules/d3-transition/src/transition/attrTween.js":[function(require,module,exports) {
 "use strict";
@@ -5969,13 +5978,25 @@ exports.default = _default;
 
 var _d3Selection = require("d3-selection");
 
+function attrInterpolate(name, i) {
+  return function (t) {
+    this.setAttribute(name, i(t));
+  };
+}
+
+function attrInterpolateNS(fullname, i) {
+  return function (t) {
+    this.setAttributeNS(fullname.space, fullname.local, i(t));
+  };
+}
+
 function attrTweenNS(fullname, value) {
+  var t0, i0;
+
   function tween() {
-    var node = this,
-        i = value.apply(node, arguments);
-    return i && function (t) {
-      node.setAttributeNS(fullname.space, fullname.local, i(t));
-    };
+    var i = value.apply(this, arguments);
+    if (i !== i0) t0 = (i0 = i) && attrInterpolateNS(fullname, i);
+    return t0;
   }
 
   tween._value = value;
@@ -5983,12 +6004,12 @@ function attrTweenNS(fullname, value) {
 }
 
 function attrTween(name, value) {
+  var t0, i0;
+
   function tween() {
-    var node = this,
-        i = value.apply(node, arguments);
-    return i && function (t) {
-      node.setAttribute(name, i(t));
-    };
+    var i = value.apply(this, arguments);
+    if (i !== i0) t0 = (i0 = i) && attrInterpolate(name, i);
+    return t0;
   }
 
   tween._value = value;
@@ -6284,50 +6305,74 @@ var _d3Interpolate = require("d3-interpolate");
 
 var _d3Selection = require("d3-selection");
 
+var _schedule = require("./schedule");
+
 var _tween = require("./tween");
 
 var _interpolate = _interopRequireDefault(require("./interpolate"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function styleRemove(name, interpolate) {
-  var value00, value10, interpolate0;
+function styleNull(name, interpolate) {
+  var string00, string10, interpolate0;
   return function () {
-    var value0 = (0, _d3Selection.style)(this, name),
-        value1 = (this.style.removeProperty(name), (0, _d3Selection.style)(this, name));
-    return value0 === value1 ? null : value0 === value00 && value1 === value10 ? interpolate0 : interpolate0 = interpolate(value00 = value0, value10 = value1);
+    var string0 = (0, _d3Selection.style)(this, name),
+        string1 = (this.style.removeProperty(name), (0, _d3Selection.style)(this, name));
+    return string0 === string1 ? null : string0 === string00 && string1 === string10 ? interpolate0 : interpolate0 = interpolate(string00 = string0, string10 = string1);
   };
 }
 
-function styleRemoveEnd(name) {
+function styleRemove(name) {
   return function () {
     this.style.removeProperty(name);
   };
 }
 
 function styleConstant(name, interpolate, value1) {
-  var value00, interpolate0;
+  var string00,
+      string1 = value1 + "",
+      interpolate0;
   return function () {
-    var value0 = (0, _d3Selection.style)(this, name);
-    return value0 === value1 ? null : value0 === value00 ? interpolate0 : interpolate0 = interpolate(value00 = value0, value1);
+    var string0 = (0, _d3Selection.style)(this, name);
+    return string0 === string1 ? null : string0 === string00 ? interpolate0 : interpolate0 = interpolate(string00 = string0, value1);
   };
 }
 
 function styleFunction(name, interpolate, value) {
-  var value00, value10, interpolate0;
+  var string00, string10, interpolate0;
   return function () {
-    var value0 = (0, _d3Selection.style)(this, name),
-        value1 = value(this);
-    if (value1 == null) value1 = (this.style.removeProperty(name), (0, _d3Selection.style)(this, name));
-    return value0 === value1 ? null : value0 === value00 && value1 === value10 ? interpolate0 : interpolate0 = interpolate(value00 = value0, value10 = value1);
+    var string0 = (0, _d3Selection.style)(this, name),
+        value1 = value(this),
+        string1 = value1 + "";
+    if (value1 == null) string1 = value1 = (this.style.removeProperty(name), (0, _d3Selection.style)(this, name));
+    return string0 === string1 ? null : string0 === string00 && string1 === string10 ? interpolate0 : (string10 = string1, interpolate0 = interpolate(string00 = string0, value1));
+  };
+}
+
+function styleMaybeRemove(id, name) {
+  var on0,
+      on1,
+      listener0,
+      key = "style." + name,
+      event = "end." + key,
+      remove;
+  return function () {
+    var schedule = (0, _schedule.set)(this, id),
+        on = schedule.on,
+        listener = schedule.value[key] == null ? remove || (remove = styleRemove(name)) : undefined; // If this node shared a dispatch with the previous node,
+    // just assign the updated shared dispatch and we’re done!
+    // Otherwise, copy-on-write.
+
+    if (on !== on0 || listener0 !== listener) (on1 = (on0 = on).copy()).on(event, listener0 = listener);
+    schedule.on = on1;
   };
 }
 
 function _default(name, value, priority) {
   var i = (name += "") === "transform" ? _d3Interpolate.interpolateTransformCss : _interpolate.default;
-  return value == null ? this.styleTween(name, styleRemove(name, i)).on("end.style." + name, styleRemoveEnd(name)) : this.styleTween(name, typeof value === "function" ? styleFunction(name, i, (0, _tween.tweenValue)(this, "style." + name, value)) : styleConstant(name, i, value + ""), priority);
+  return value == null ? this.styleTween(name, styleNull(name, i)).on("end.style." + name, styleRemove(name)) : typeof value === "function" ? this.styleTween(name, styleFunction(name, i, (0, _tween.tweenValue)(this, "style." + name, value))).each(styleMaybeRemove(this._id, name)) : this.styleTween(name, styleConstant(name, i, value), priority).on("end.style." + name, null);
 }
-},{"d3-interpolate":"C3/c3/node_modules/d3-interpolate/src/index.js","d3-selection":"C3/c3/node_modules/d3-selection/src/index.js","./tween":"C3/c3/node_modules/d3-transition/src/transition/tween.js","./interpolate":"C3/c3/node_modules/d3-transition/src/transition/interpolate.js"}],"C3/c3/node_modules/d3-transition/src/transition/styleTween.js":[function(require,module,exports) {
+},{"d3-interpolate":"C3/c3/node_modules/d3-interpolate/src/index.js","d3-selection":"C3/c3/node_modules/d3-selection/src/index.js","./schedule":"C3/c3/node_modules/d3-transition/src/transition/schedule.js","./tween":"C3/c3/node_modules/d3-transition/src/transition/tween.js","./interpolate":"C3/c3/node_modules/d3-transition/src/transition/interpolate.js"}],"C3/c3/node_modules/d3-transition/src/transition/styleTween.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6335,13 +6380,19 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
+function styleInterpolate(name, i, priority) {
+  return function (t) {
+    this.style.setProperty(name, i(t), priority);
+  };
+}
+
 function styleTween(name, value, priority) {
+  var t, i0;
+
   function tween() {
-    var node = this,
-        i = value.apply(node, arguments);
-    return i && function (t) {
-      node.style.setProperty(name, i(t), priority);
-    };
+    var i = value.apply(this, arguments);
+    if (i !== i0) t = (i0 = i) && styleInterpolate(name, i, priority);
+    return t;
   }
 
   tween._value = value;
@@ -6416,7 +6467,52 @@ function _default() {
 
   return new _index.Transition(groups, this._parents, name, id1);
 }
-},{"./index":"C3/c3/node_modules/d3-transition/src/transition/index.js","./schedule":"C3/c3/node_modules/d3-transition/src/transition/schedule.js"}],"C3/c3/node_modules/d3-transition/src/transition/index.js":[function(require,module,exports) {
+},{"./index":"C3/c3/node_modules/d3-transition/src/transition/index.js","./schedule":"C3/c3/node_modules/d3-transition/src/transition/schedule.js"}],"C3/c3/node_modules/d3-transition/src/transition/end.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+var _schedule = require("./schedule");
+
+function _default() {
+  var on0,
+      on1,
+      that = this,
+      id = that._id,
+      size = that.size();
+  return new Promise(function (resolve, reject) {
+    var cancel = {
+      value: reject
+    },
+        end = {
+      value: function () {
+        if (--size === 0) resolve();
+      }
+    };
+    that.each(function () {
+      var schedule = (0, _schedule.set)(this, id),
+          on = schedule.on; // If this node shared a dispatch with the previous node,
+      // just assign the updated shared dispatch and we’re done!
+      // Otherwise, copy-on-write.
+
+      if (on !== on0) {
+        on1 = (on0 = on).copy();
+
+        on1._.cancel.push(cancel);
+
+        on1._.interrupt.push(cancel);
+
+        on1._.end.push(end);
+      }
+
+      schedule.on = on1;
+    });
+  });
+}
+},{"./schedule":"C3/c3/node_modules/d3-transition/src/transition/schedule.js"}],"C3/c3/node_modules/d3-transition/src/transition/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6462,6 +6558,8 @@ var _transition = _interopRequireDefault(require("./transition"));
 
 var _tween = _interopRequireDefault(require("./tween"));
 
+var _end = _interopRequireDefault(require("./end"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var id = 0;
@@ -6506,9 +6604,10 @@ Transition.prototype = transition.prototype = {
   tween: _tween.default,
   delay: _delay.default,
   duration: _duration.default,
-  ease: _ease.default
+  ease: _ease.default,
+  end: _end.default
 };
-},{"d3-selection":"C3/c3/node_modules/d3-selection/src/index.js","./attr":"C3/c3/node_modules/d3-transition/src/transition/attr.js","./attrTween":"C3/c3/node_modules/d3-transition/src/transition/attrTween.js","./delay":"C3/c3/node_modules/d3-transition/src/transition/delay.js","./duration":"C3/c3/node_modules/d3-transition/src/transition/duration.js","./ease":"C3/c3/node_modules/d3-transition/src/transition/ease.js","./filter":"C3/c3/node_modules/d3-transition/src/transition/filter.js","./merge":"C3/c3/node_modules/d3-transition/src/transition/merge.js","./on":"C3/c3/node_modules/d3-transition/src/transition/on.js","./remove":"C3/c3/node_modules/d3-transition/src/transition/remove.js","./select":"C3/c3/node_modules/d3-transition/src/transition/select.js","./selectAll":"C3/c3/node_modules/d3-transition/src/transition/selectAll.js","./selection":"C3/c3/node_modules/d3-transition/src/transition/selection.js","./style":"C3/c3/node_modules/d3-transition/src/transition/style.js","./styleTween":"C3/c3/node_modules/d3-transition/src/transition/styleTween.js","./text":"C3/c3/node_modules/d3-transition/src/transition/text.js","./transition":"C3/c3/node_modules/d3-transition/src/transition/transition.js","./tween":"C3/c3/node_modules/d3-transition/src/transition/tween.js"}],"C3/c3/node_modules/d3-ease/src/linear.js":[function(require,module,exports) {
+},{"d3-selection":"C3/c3/node_modules/d3-selection/src/index.js","./attr":"C3/c3/node_modules/d3-transition/src/transition/attr.js","./attrTween":"C3/c3/node_modules/d3-transition/src/transition/attrTween.js","./delay":"C3/c3/node_modules/d3-transition/src/transition/delay.js","./duration":"C3/c3/node_modules/d3-transition/src/transition/duration.js","./ease":"C3/c3/node_modules/d3-transition/src/transition/ease.js","./filter":"C3/c3/node_modules/d3-transition/src/transition/filter.js","./merge":"C3/c3/node_modules/d3-transition/src/transition/merge.js","./on":"C3/c3/node_modules/d3-transition/src/transition/on.js","./remove":"C3/c3/node_modules/d3-transition/src/transition/remove.js","./select":"C3/c3/node_modules/d3-transition/src/transition/select.js","./selectAll":"C3/c3/node_modules/d3-transition/src/transition/selectAll.js","./selection":"C3/c3/node_modules/d3-transition/src/transition/selection.js","./style":"C3/c3/node_modules/d3-transition/src/transition/style.js","./styleTween":"C3/c3/node_modules/d3-transition/src/transition/styleTween.js","./text":"C3/c3/node_modules/d3-transition/src/transition/text.js","./transition":"C3/c3/node_modules/d3-transition/src/transition/transition.js","./tween":"C3/c3/node_modules/d3-transition/src/transition/tween.js","./end":"C3/c3/node_modules/d3-transition/src/transition/end.js"}],"C3/c3/node_modules/d3-ease/src/linear.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9302,6 +9401,24 @@ function inferColumns(rows) {
   return columns;
 }
 
+function pad(value, width) {
+  var s = value + "",
+      length = s.length;
+  return length < width ? new Array(width - length + 1).join(0) + s : s;
+}
+
+function formatYear(year) {
+  return year < 0 ? "-" + pad(-year, 6) : year > 9999 ? "+" + pad(year, 6) : pad(year, 4);
+}
+
+function formatDate(date) {
+  var hours = date.getUTCHours(),
+      minutes = date.getUTCMinutes(),
+      seconds = date.getUTCSeconds(),
+      milliseconds = date.getUTCMilliseconds();
+  return isNaN(date) ? "Invalid Date" : formatYear(date.getUTCFullYear(), 4) + "-" + pad(date.getUTCMonth() + 1, 2) + "-" + pad(date.getUTCDate(), 2) + (milliseconds ? "T" + pad(hours, 2) + ":" + pad(minutes, 2) + ":" + pad(seconds, 2) + "." + pad(milliseconds, 3) + "Z" : seconds ? "T" + pad(hours, 2) + ":" + pad(minutes, 2) + ":" + pad(seconds, 2) + "Z" : minutes || hours ? "T" + pad(hours, 2) + ":" + pad(minutes, 2) + "Z" : "");
+}
+
 function _default(delimiter) {
   var reFormat = new RegExp("[\"" + delimiter + "\n\r]"),
       DELIMITER = delimiter.charCodeAt(0);
@@ -9378,13 +9495,22 @@ function _default(delimiter) {
     return rows;
   }
 
-  function format(rows, columns) {
-    if (columns == null) columns = inferColumns(rows);
-    return [columns.map(formatValue).join(delimiter)].concat(rows.map(function (row) {
+  function preformatBody(rows, columns) {
+    return rows.map(function (row) {
       return columns.map(function (column) {
         return formatValue(row[column]);
       }).join(delimiter);
-    })).join("\n");
+    });
+  }
+
+  function format(rows, columns) {
+    if (columns == null) columns = inferColumns(rows);
+    return [columns.map(formatValue).join(delimiter)].concat(preformatBody(rows, columns)).join("\n");
+  }
+
+  function formatBody(rows, columns) {
+    if (columns == null) columns = inferColumns(rows);
+    return preformatBody(rows, columns).join("\n");
   }
 
   function formatRows(rows) {
@@ -9395,14 +9521,15 @@ function _default(delimiter) {
     return row.map(formatValue).join(delimiter);
   }
 
-  function formatValue(text) {
-    return text == null ? "" : reFormat.test(text += "") ? "\"" + text.replace(/"/g, "\"\"") + "\"" : text;
+  function formatValue(value) {
+    return value == null ? "" : value instanceof Date ? formatDate(value) : reFormat.test(value += "") ? "\"" + value.replace(/"/g, "\"\"") + "\"" : value;
   }
 
   return {
     parse: parse,
     parseRows: parseRows,
     format: format,
+    formatBody: formatBody,
     formatRows: formatRows
   };
 }
@@ -9412,7 +9539,7 @@ function _default(delimiter) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.csvFormatRows = exports.csvFormat = exports.csvParseRows = exports.csvParse = void 0;
+exports.csvFormatRows = exports.csvFormatBody = exports.csvFormat = exports.csvParseRows = exports.csvParse = void 0;
 
 var _dsv = _interopRequireDefault(require("./dsv"));
 
@@ -9425,6 +9552,8 @@ var csvParseRows = csv.parseRows;
 exports.csvParseRows = csvParseRows;
 var csvFormat = csv.format;
 exports.csvFormat = csvFormat;
+var csvFormatBody = csv.formatBody;
+exports.csvFormatBody = csvFormatBody;
 var csvFormatRows = csv.formatRows;
 exports.csvFormatRows = csvFormatRows;
 },{"./dsv":"C3/c3/node_modules/d3-dsv/src/dsv.js"}],"C3/c3/node_modules/d3-dsv/src/tsv.js":[function(require,module,exports) {
@@ -9433,7 +9562,7 @@ exports.csvFormatRows = csvFormatRows;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.tsvFormatRows = exports.tsvFormat = exports.tsvParseRows = exports.tsvParse = void 0;
+exports.tsvFormatRows = exports.tsvFormatBody = exports.tsvFormat = exports.tsvParseRows = exports.tsvParse = void 0;
 
 var _dsv = _interopRequireDefault(require("./dsv"));
 
@@ -9446,9 +9575,29 @@ var tsvParseRows = tsv.parseRows;
 exports.tsvParseRows = tsvParseRows;
 var tsvFormat = tsv.format;
 exports.tsvFormat = tsvFormat;
+var tsvFormatBody = tsv.formatBody;
+exports.tsvFormatBody = tsvFormatBody;
 var tsvFormatRows = tsv.formatRows;
 exports.tsvFormatRows = tsvFormatRows;
-},{"./dsv":"C3/c3/node_modules/d3-dsv/src/dsv.js"}],"C3/c3/node_modules/d3-dsv/src/index.js":[function(require,module,exports) {
+},{"./dsv":"C3/c3/node_modules/d3-dsv/src/dsv.js"}],"C3/c3/node_modules/d3-dsv/src/autoType.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = autoType;
+
+function autoType(object) {
+  for (var key in object) {
+    var value = object[key].trim(),
+        number;
+    if (!value) value = null;else if (value === "true") value = true;else if (value === "false") value = false;else if (value === "NaN") value = NaN;else if (!isNaN(number = +value)) value = number;else if (/^([-+]\d{2})?\d{4}(-\d{2}(-\d{2})?)?(T\d{2}:\d{2}(:\d{2}(\.\d{3})?)?(Z|[-+]\d{2}:\d{2})?)?$/.test(value)) value = new Date(value);else continue;
+    object[key] = value;
+  }
+
+  return object;
+}
+},{}],"C3/c3/node_modules/d3-dsv/src/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9478,6 +9627,12 @@ Object.defineProperty(exports, "csvFormat", {
     return _csv.csvFormat;
   }
 });
+Object.defineProperty(exports, "csvFormatBody", {
+  enumerable: true,
+  get: function () {
+    return _csv.csvFormatBody;
+  }
+});
 Object.defineProperty(exports, "csvFormatRows", {
   enumerable: true,
   get: function () {
@@ -9502,10 +9657,22 @@ Object.defineProperty(exports, "tsvFormat", {
     return _tsv.tsvFormat;
   }
 });
+Object.defineProperty(exports, "tsvFormatBody", {
+  enumerable: true,
+  get: function () {
+    return _tsv.tsvFormatBody;
+  }
+});
 Object.defineProperty(exports, "tsvFormatRows", {
   enumerable: true,
   get: function () {
     return _tsv.tsvFormatRows;
+  }
+});
+Object.defineProperty(exports, "autoType", {
+  enumerable: true,
+  get: function () {
+    return _autoType.default;
   }
 });
 
@@ -9515,8 +9682,10 @@ var _csv = require("./csv");
 
 var _tsv = require("./tsv");
 
+var _autoType = _interopRequireDefault(require("./autoType"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./dsv":"C3/c3/node_modules/d3-dsv/src/dsv.js","./csv":"C3/c3/node_modules/d3-dsv/src/csv.js","./tsv":"C3/c3/node_modules/d3-dsv/src/tsv.js"}],"C3/c3/node_modules/d3-fetch/src/blob.js":[function(require,module,exports) {
+},{"./dsv":"C3/c3/node_modules/d3-dsv/src/dsv.js","./csv":"C3/c3/node_modules/d3-dsv/src/csv.js","./tsv":"C3/c3/node_modules/d3-dsv/src/tsv.js","./autoType":"C3/c3/node_modules/d3-dsv/src/autoType.js"}],"C3/c3/node_modules/d3-fetch/src/blob.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9902,11 +10071,10 @@ function addAll(data) {
     if (x > x1) x1 = x;
     if (y < y0) y0 = y;
     if (y > y1) y1 = y;
-  } // If there were no (valid) points, inherit the existing extent.
+  } // If there were no (valid) points, abort.
 
 
-  if (x1 < x0) x0 = this._x0, x1 = this._x1;
-  if (y1 < y0) y0 = this._y0, y1 = this._y1; // Expand the tree to cover the new points.
+  if (x0 > x1 || y0 > y1) return this; // Expand the tree to cover the new points.
 
   this.cover(x0, y0).cover(x1, y1); // Add the new points.
 
@@ -9938,45 +10106,37 @@ function _default(x, y) {
     x1 = (x0 = Math.floor(x)) + 1;
     y1 = (y0 = Math.floor(y)) + 1;
   } // Otherwise, double repeatedly to cover.
-  else if (x0 > x || x > x1 || y0 > y || y > y1) {
+  else {
       var z = x1 - x0,
           node = this._root,
           parent,
           i;
 
-      switch (i = (y < (y0 + y1) / 2) << 1 | x < (x0 + x1) / 2) {
-        case 0:
-          {
-            do parent = new Array(4), parent[i] = node, node = parent; while ((z *= 2, x1 = x0 + z, y1 = y0 + z, x > x1 || y > y1));
+      while (x0 > x || x >= x1 || y0 > y || y >= y1) {
+        i = (y < y0) << 1 | x < x0;
+        parent = new Array(4), parent[i] = node, node = parent, z *= 2;
 
+        switch (i) {
+          case 0:
+            x1 = x0 + z, y1 = y0 + z;
             break;
-          }
 
-        case 1:
-          {
-            do parent = new Array(4), parent[i] = node, node = parent; while ((z *= 2, x0 = x1 - z, y1 = y0 + z, x0 > x || y > y1));
-
+          case 1:
+            x0 = x1 - z, y1 = y0 + z;
             break;
-          }
 
-        case 2:
-          {
-            do parent = new Array(4), parent[i] = node, node = parent; while ((z *= 2, x1 = x0 + z, y0 = y1 - z, x > x1 || y0 > y));
-
+          case 2:
+            x1 = x0 + z, y0 = y1 - z;
             break;
-          }
 
-        case 3:
-          {
-            do parent = new Array(4), parent[i] = node, node = parent; while ((z *= 2, x0 = x1 - z, y0 = y1 - z, x0 > x || y0 > y));
-
+          case 3:
+            x0 = x1 - z, y0 = y1 - z;
             break;
-          }
+        }
       }
 
       if (this._root && this._root.length) this._root = node;
-    } // If the quadtree covers the point already, just return.
-    else return this;
+    }
 
   this._x0 = x0;
   this._y0 = y0;
@@ -10708,25 +10868,33 @@ function _default(nodes) {
     }
   }
 
-  function tick() {
+  function tick(iterations) {
     var i,
         n = nodes.length,
         node;
-    alpha += (alphaTarget - alpha) * alphaDecay;
-    forces.each(function (force) {
-      force(alpha);
-    });
+    if (iterations === undefined) iterations = 1;
 
-    for (i = 0; i < n; ++i) {
-      node = nodes[i];
-      if (node.fx == null) node.x += node.vx *= velocityDecay;else node.x = node.fx, node.vx = 0;
-      if (node.fy == null) node.y += node.vy *= velocityDecay;else node.y = node.fy, node.vy = 0;
+    for (var k = 0; k < iterations; ++k) {
+      alpha += (alphaTarget - alpha) * alphaDecay;
+      forces.each(function (force) {
+        force(alpha);
+      });
+
+      for (i = 0; i < n; ++i) {
+        node = nodes[i];
+        if (node.fx == null) node.x += node.vx *= velocityDecay;else node.x = node.fx, node.vx = 0;
+        if (node.fy == null) node.y += node.vy *= velocityDecay;else node.y = node.fy, node.vy = 0;
+      }
     }
+
+    return simulation;
   }
 
   function initializeNodes() {
     for (var i = 0, n = nodes.length, node; i < n; ++i) {
       node = nodes[i], node.index = i;
+      if (node.fx != null) node.x = node.fx;
+      if (node.fy != null) node.y = node.fy;
 
       if (isNaN(node.x) || isNaN(node.y)) {
         var radius = initialRadius * Math.sqrt(i),
@@ -12478,7 +12646,7 @@ var _math = require("./math");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function rotationIdentity(lambda, phi) {
-  return [lambda > _math.pi ? lambda - _math.tau : lambda < -_math.pi ? lambda + _math.tau : lambda, phi];
+  return [(0, _math.abs)(lambda) > _math.pi ? lambda + Math.round(-lambda / _math.tau) * _math.tau : lambda, phi];
 }
 
 rotationIdentity.invert = rotationIdentity;
@@ -18338,7 +18506,49 @@ var _irwinHall = _interopRequireDefault(require("./irwinHall"));
 var _exponential = _interopRequireDefault(require("./exponential"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./uniform":"C3/c3/node_modules/d3-random/src/uniform.js","./normal":"C3/c3/node_modules/d3-random/src/normal.js","./logNormal":"C3/c3/node_modules/d3-random/src/logNormal.js","./bates":"C3/c3/node_modules/d3-random/src/bates.js","./irwinHall":"C3/c3/node_modules/d3-random/src/irwinHall.js","./exponential":"C3/c3/node_modules/d3-random/src/exponential.js"}],"C3/c3/node_modules/d3-scale/src/array.js":[function(require,module,exports) {
+},{"./uniform":"C3/c3/node_modules/d3-random/src/uniform.js","./normal":"C3/c3/node_modules/d3-random/src/normal.js","./logNormal":"C3/c3/node_modules/d3-random/src/logNormal.js","./bates":"C3/c3/node_modules/d3-random/src/bates.js","./irwinHall":"C3/c3/node_modules/d3-random/src/irwinHall.js","./exponential":"C3/c3/node_modules/d3-random/src/exponential.js"}],"C3/c3/node_modules/d3-scale/src/init.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.initRange = initRange;
+exports.initInterpolator = initInterpolator;
+
+function initRange(domain, range) {
+  switch (arguments.length) {
+    case 0:
+      break;
+
+    case 1:
+      this.range(domain);
+      break;
+
+    default:
+      this.range(range).domain(domain);
+      break;
+  }
+
+  return this;
+}
+
+function initInterpolator(domain, interpolator) {
+  switch (arguments.length) {
+    case 0:
+      break;
+
+    case 1:
+      this.interpolator(domain);
+      break;
+
+    default:
+      this.interpolator(interpolator).domain(domain);
+      break;
+  }
+
+  return this;
+}
+},{}],"C3/c3/node_modules/d3-scale/src/array.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18363,16 +18573,18 @@ var _d3Collection = require("d3-collection");
 
 var _array = require("./array");
 
+var _init = require("./init");
+
 var implicit = {
   name: "implicit"
 };
 exports.implicit = implicit;
 
-function ordinal(range) {
+function ordinal() {
   var index = (0, _d3Collection.map)(),
       domain = [],
+      range = [],
       unknown = implicit;
-  range = range == null ? [] : _array.slice.call(range);
 
   function scale(d) {
     var key = d + "",
@@ -18408,12 +18620,14 @@ function ordinal(range) {
   };
 
   scale.copy = function () {
-    return ordinal().domain(domain).range(range).unknown(unknown);
+    return ordinal(domain, range).unknown(unknown);
   };
+
+  _init.initRange.apply(scale, arguments);
 
   return scale;
 }
-},{"d3-collection":"C3/c3/node_modules/d3-collection/src/index.js","./array":"C3/c3/node_modules/d3-scale/src/array.js"}],"C3/c3/node_modules/d3-scale/src/band.js":[function(require,module,exports) {
+},{"d3-collection":"C3/c3/node_modules/d3-collection/src/index.js","./array":"C3/c3/node_modules/d3-scale/src/array.js","./init":"C3/c3/node_modules/d3-scale/src/init.js"}],"C3/c3/node_modules/d3-scale/src/band.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18423,6 +18637,8 @@ exports.default = band;
 exports.point = point;
 
 var _d3Array = require("d3-array");
+
+var _init = require("./init");
 
 var _ordinal = _interopRequireDefault(require("./ordinal"));
 
@@ -18482,15 +18698,15 @@ function band() {
   };
 
   scale.padding = function (_) {
-    return arguments.length ? (paddingInner = paddingOuter = Math.max(0, Math.min(1, _)), rescale()) : paddingInner;
+    return arguments.length ? (paddingInner = Math.min(1, paddingOuter = +_), rescale()) : paddingInner;
   };
 
   scale.paddingInner = function (_) {
-    return arguments.length ? (paddingInner = Math.max(0, Math.min(1, _)), rescale()) : paddingInner;
+    return arguments.length ? (paddingInner = Math.min(1, _), rescale()) : paddingInner;
   };
 
   scale.paddingOuter = function (_) {
-    return arguments.length ? (paddingOuter = Math.max(0, Math.min(1, _)), rescale()) : paddingOuter;
+    return arguments.length ? (paddingOuter = +_, rescale()) : paddingOuter;
   };
 
   scale.align = function (_) {
@@ -18498,10 +18714,10 @@ function band() {
   };
 
   scale.copy = function () {
-    return band().domain(domain()).range(range).round(round).paddingInner(paddingInner).paddingOuter(paddingOuter).align(align);
+    return band(domain(), range).round(round).paddingInner(paddingInner).paddingOuter(paddingOuter).align(align);
   };
 
-  return rescale();
+  return _init.initRange.apply(rescale(), arguments);
 }
 
 function pointish(scale) {
@@ -18518,9 +18734,9 @@ function pointish(scale) {
 }
 
 function point() {
-  return pointish(band().paddingInner(1));
+  return pointish(band.apply(null, arguments).paddingInner(1));
 }
-},{"d3-array":"C3/c3/node_modules/d3-array/src/index.js","./ordinal":"C3/c3/node_modules/d3-scale/src/ordinal.js"}],"C3/c3/node_modules/d3-scale/src/constant.js":[function(require,module,exports) {
+},{"d3-array":"C3/c3/node_modules/d3-array/src/index.js","./init":"C3/c3/node_modules/d3-scale/src/init.js","./ordinal":"C3/c3/node_modules/d3-scale/src/ordinal.js"}],"C3/c3/node_modules/d3-scale/src/constant.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18550,8 +18766,9 @@ function _default(x) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.deinterpolateLinear = deinterpolateLinear;
+exports.identity = identity;
 exports.copy = copy;
+exports.transformer = transformer;
 exports.default = continuous;
 
 var _d3Array = require("d3-array");
@@ -18568,42 +18785,40 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var unit = [0, 1];
 
-function deinterpolateLinear(a, b) {
+function identity(x) {
+  return x;
+}
+
+function normalize(a, b) {
   return (b -= a = +a) ? function (x) {
     return (x - a) / b;
-  } : (0, _constant.default)(b);
+  } : (0, _constant.default)(isNaN(b) ? NaN : 0.5);
 }
 
-function deinterpolateClamp(deinterpolate) {
-  return function (a, b) {
-    var d = deinterpolate(a = +a, b = +b);
-    return function (x) {
-      return x <= a ? 0 : x >= b ? 1 : d(x);
-    };
+function clamper(domain) {
+  var a = domain[0],
+      b = domain[domain.length - 1],
+      t;
+  if (a > b) t = a, a = b, b = t;
+  return function (x) {
+    return Math.max(a, Math.min(b, x));
   };
-}
+} // normalize(a, b)(x) takes a domain value x in [a,b] and returns the corresponding parameter t in [0,1].
+// interpolate(a, b)(t) takes a parameter t in [0,1] and returns the corresponding range value x in [a,b].
 
-function reinterpolateClamp(reinterpolate) {
-  return function (a, b) {
-    var r = reinterpolate(a = +a, b = +b);
-    return function (t) {
-      return t <= 0 ? a : t >= 1 ? b : r(t);
-    };
-  };
-}
 
-function bimap(domain, range, deinterpolate, reinterpolate) {
+function bimap(domain, range, interpolate) {
   var d0 = domain[0],
       d1 = domain[1],
       r0 = range[0],
       r1 = range[1];
-  if (d1 < d0) d0 = deinterpolate(d1, d0), r0 = reinterpolate(r1, r0);else d0 = deinterpolate(d0, d1), r0 = reinterpolate(r0, r1);
+  if (d1 < d0) d0 = normalize(d1, d0), r0 = interpolate(r1, r0);else d0 = normalize(d0, d1), r0 = interpolate(r0, r1);
   return function (x) {
     return r0(d0(x));
   };
 }
 
-function polymap(domain, range, deinterpolate, reinterpolate) {
+function polymap(domain, range, interpolate) {
   var j = Math.min(domain.length, range.length) - 1,
       d = new Array(j),
       r = new Array(j),
@@ -18615,8 +18830,8 @@ function polymap(domain, range, deinterpolate, reinterpolate) {
   }
 
   while (++i < j) {
-    d[i] = deinterpolate(domain[i], domain[i + 1]);
-    r[i] = reinterpolate(range[i], range[i + 1]);
+    d[i] = normalize(domain[i], domain[i + 1]);
+    r[i] = interpolate(range[i], range[i + 1]);
   }
 
   return function (x) {
@@ -18626,16 +18841,17 @@ function polymap(domain, range, deinterpolate, reinterpolate) {
 }
 
 function copy(source, target) {
-  return target.domain(source.domain()).range(source.range()).interpolate(source.interpolate()).clamp(source.clamp());
-} // deinterpolate(a, b)(x) takes a domain value x in [a,b] and returns the corresponding parameter t in [0,1].
-// reinterpolate(a, b)(t) takes a parameter t in [0,1] and returns the corresponding domain value x in [a,b].
+  return target.domain(source.domain()).range(source.range()).interpolate(source.interpolate()).clamp(source.clamp()).unknown(source.unknown());
+}
 
-
-function continuous(deinterpolate, reinterpolate) {
+function transformer() {
   var domain = unit,
       range = unit,
       interpolate = _d3Interpolate.interpolate,
-      clamp = false,
+      transform,
+      untransform,
+      unknown,
+      clamp = identity,
       piecewise,
       output,
       input;
@@ -18647,15 +18863,15 @@ function continuous(deinterpolate, reinterpolate) {
   }
 
   function scale(x) {
-    return (output || (output = piecewise(domain, range, clamp ? deinterpolateClamp(deinterpolate) : deinterpolate, interpolate)))(+x);
+    return isNaN(x = +x) ? unknown : (output || (output = piecewise(domain.map(transform), range, interpolate)))(transform(clamp(x)));
   }
 
   scale.invert = function (y) {
-    return (input || (input = piecewise(range, domain, deinterpolateLinear, clamp ? reinterpolateClamp(reinterpolate) : reinterpolate)))(+y);
+    return clamp(untransform((input || (input = piecewise(range, domain.map(transform), _d3Interpolate.interpolateNumber)))(y)));
   };
 
   scale.domain = function (_) {
-    return arguments.length ? (domain = _array.map.call(_, _number.default), rescale()) : domain.slice();
+    return arguments.length ? (domain = _array.map.call(_, _number.default), clamp === identity || (clamp = clamper(domain)), rescale()) : domain.slice();
   };
 
   scale.range = function (_) {
@@ -18667,14 +18883,25 @@ function continuous(deinterpolate, reinterpolate) {
   };
 
   scale.clamp = function (_) {
-    return arguments.length ? (clamp = !!_, rescale()) : clamp;
+    return arguments.length ? (clamp = _ ? clamper(domain) : identity, scale) : clamp !== identity;
   };
 
   scale.interpolate = function (_) {
     return arguments.length ? (interpolate = _, rescale()) : interpolate;
   };
 
-  return rescale();
+  scale.unknown = function (_) {
+    return arguments.length ? (unknown = _, scale) : unknown;
+  };
+
+  return function (t, u) {
+    transform = t, untransform = u;
+    return rescale();
+  };
+}
+
+function continuous(transform, untransform) {
+  return transformer()(transform, untransform);
 }
 },{"d3-array":"C3/c3/node_modules/d3-array/src/index.js","d3-interpolate":"C3/c3/node_modules/d3-interpolate/src/index.js","./array":"C3/c3/node_modules/d3-scale/src/array.js","./constant":"C3/c3/node_modules/d3-scale/src/constant.js","./number":"C3/c3/node_modules/d3-scale/src/number.js"}],"C3/c3/node_modules/d3-scale/src/tickFormat.js":[function(require,module,exports) {
 "use strict";
@@ -18688,10 +18915,8 @@ var _d3Array = require("d3-array");
 
 var _d3Format = require("d3-format");
 
-function _default(domain, count, specifier) {
-  var start = domain[0],
-      stop = domain[domain.length - 1],
-      step = (0, _d3Array.tickStep)(start, stop, count == null ? 10 : count),
+function _default(start, stop, count, specifier) {
+  var step = (0, _d3Array.tickStep)(start, stop, count),
       precision;
   specifier = (0, _d3Format.formatSpecifier)(specifier == null ? ",f" : specifier);
 
@@ -18734,9 +18959,9 @@ exports.default = linear;
 
 var _d3Array = require("d3-array");
 
-var _d3Interpolate = require("d3-interpolate");
-
 var _continuous = _interopRequireWildcard(require("./continuous"));
+
+var _init = require("./init");
 
 var _tickFormat = _interopRequireDefault(require("./tickFormat"));
 
@@ -18753,7 +18978,8 @@ function linearish(scale) {
   };
 
   scale.tickFormat = function (count, specifier) {
-    return (0, _tickFormat.default)(domain(), count, specifier);
+    var d = domain();
+    return (0, _tickFormat.default)(d[0], d[d.length - 1], count == null ? 10 : count, specifier);
   };
 
   scale.nice = function (count) {
@@ -18799,15 +19025,17 @@ function linearish(scale) {
 }
 
 function linear() {
-  var scale = (0, _continuous.default)(_continuous.deinterpolateLinear, _d3Interpolate.interpolateNumber);
+  var scale = (0, _continuous.default)(_continuous.identity, _continuous.identity);
 
   scale.copy = function () {
     return (0, _continuous.copy)(scale, linear());
   };
 
+  _init.initRange.apply(scale, arguments);
+
   return linearish(scale);
 }
-},{"d3-array":"C3/c3/node_modules/d3-array/src/index.js","d3-interpolate":"C3/c3/node_modules/d3-interpolate/src/index.js","./continuous":"C3/c3/node_modules/d3-scale/src/continuous.js","./tickFormat":"C3/c3/node_modules/d3-scale/src/tickFormat.js"}],"C3/c3/node_modules/d3-scale/src/identity.js":[function(require,module,exports) {
+},{"d3-array":"C3/c3/node_modules/d3-array/src/index.js","./continuous":"C3/c3/node_modules/d3-scale/src/continuous.js","./init":"C3/c3/node_modules/d3-scale/src/init.js","./tickFormat":"C3/c3/node_modules/d3-scale/src/tickFormat.js"}],"C3/c3/node_modules/d3-scale/src/identity.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18823,11 +19051,11 @@ var _number = _interopRequireDefault(require("./number"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function identity() {
-  var domain = [0, 1];
+function identity(domain) {
+  var unknown;
 
   function scale(x) {
-    return +x;
+    return isNaN(x = +x) ? unknown : x;
   }
 
   scale.invert = scale;
@@ -18836,10 +19064,15 @@ function identity() {
     return arguments.length ? (domain = _array.map.call(_, _number.default), scale) : domain.slice();
   };
 
-  scale.copy = function () {
-    return identity().domain(domain);
+  scale.unknown = function (_) {
+    return arguments.length ? (unknown = _, scale) : unknown;
   };
 
+  scale.copy = function () {
+    return identity(domain).unknown(unknown);
+  };
+
+  domain = arguments.length ? _array.map.call(domain, _number.default) : [0, 1];
   return (0, _linear.linearish)(scale);
 }
 },{"./array":"C3/c3/node_modules/d3-scale/src/array.js","./linear":"C3/c3/node_modules/d3-scale/src/linear.js","./number":"C3/c3/node_modules/d3-scale/src/number.js"}],"C3/c3/node_modules/d3-scale/src/nice.js":[function(require,module,exports) {
@@ -18873,34 +19106,35 @@ function _default(domain, interval) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.loggish = loggish;
 exports.default = log;
 
 var _d3Array = require("d3-array");
 
 var _d3Format = require("d3-format");
 
-var _constant = _interopRequireDefault(require("./constant"));
-
 var _nice = _interopRequireDefault(require("./nice"));
 
-var _continuous = _interopRequireWildcard(require("./continuous"));
+var _continuous = require("./continuous");
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+var _init = require("./init");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function deinterpolate(a, b) {
-  return (b = Math.log(b / a)) ? function (x) {
-    return Math.log(x / a) / b;
-  } : (0, _constant.default)(b);
+function transformLog(x) {
+  return Math.log(x);
 }
 
-function reinterpolate(a, b) {
-  return a < 0 ? function (t) {
-    return -Math.pow(-b, t) * Math.pow(-a, 1 - t);
-  } : function (t) {
-    return Math.pow(b, t) * Math.pow(a, 1 - t);
-  };
+function transformExp(x) {
+  return Math.exp(x);
+}
+
+function transformLogn(x) {
+  return -Math.log(-x);
+}
+
+function transformExpn(x) {
+  return -Math.exp(-x);
 }
 
 function pow10(x) {
@@ -18925,16 +19159,23 @@ function reflect(f) {
   };
 }
 
-function log() {
-  var scale = (0, _continuous.default)(deinterpolate, reinterpolate).domain([1, 10]),
+function loggish(transform) {
+  var scale = transform(transformLog, transformExp),
       domain = scale.domain,
       base = 10,
-      logs = logp(10),
-      pows = powp(10);
+      logs,
+      pows;
 
   function rescale() {
     logs = logp(base), pows = powp(base);
-    if (domain()[0] < 0) logs = reflect(logs), pows = reflect(pows);
+
+    if (domain()[0] < 0) {
+      logs = reflect(logs), pows = reflect(pows);
+      transform(transformLogn, transformExpn);
+    } else {
+      transform(transformLog, transformExp);
+    }
+
     return scale;
   }
 
@@ -19009,68 +19250,128 @@ function log() {
     }));
   };
 
+  return scale;
+}
+
+function log() {
+  var scale = loggish((0, _continuous.transformer)()).domain([1, 10]);
+
   scale.copy = function () {
-    return (0, _continuous.copy)(scale, log().base(base));
+    return (0, _continuous.copy)(scale, log()).base(scale.base());
   };
+
+  _init.initRange.apply(scale, arguments);
 
   return scale;
 }
-},{"d3-array":"C3/c3/node_modules/d3-array/src/index.js","d3-format":"C3/c3/node_modules/d3-format/src/index.js","./constant":"C3/c3/node_modules/d3-scale/src/constant.js","./nice":"C3/c3/node_modules/d3-scale/src/nice.js","./continuous":"C3/c3/node_modules/d3-scale/src/continuous.js"}],"C3/c3/node_modules/d3-scale/src/pow.js":[function(require,module,exports) {
+},{"d3-array":"C3/c3/node_modules/d3-array/src/index.js","d3-format":"C3/c3/node_modules/d3-format/src/index.js","./nice":"C3/c3/node_modules/d3-scale/src/nice.js","./continuous":"C3/c3/node_modules/d3-scale/src/continuous.js","./init":"C3/c3/node_modules/d3-scale/src/init.js"}],"C3/c3/node_modules/d3-scale/src/symlog.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = pow;
-exports.sqrt = sqrt;
-
-var _constant = _interopRequireDefault(require("./constant"));
+exports.symlogish = symlogish;
+exports.default = symlog;
 
 var _linear = require("./linear");
 
-var _continuous = _interopRequireWildcard(require("./continuous"));
+var _continuous = require("./continuous");
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+var _init = require("./init");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function raise(x, exponent) {
-  return x < 0 ? -Math.pow(-x, exponent) : Math.pow(x, exponent);
+function transformSymlog(c) {
+  return function (x) {
+    return Math.sign(x) * Math.log1p(Math.abs(x / c));
+  };
 }
 
-function pow() {
-  var exponent = 1,
-      scale = (0, _continuous.default)(deinterpolate, reinterpolate),
-      domain = scale.domain;
-
-  function deinterpolate(a, b) {
-    return (b = raise(b, exponent) - (a = raise(a, exponent))) ? function (x) {
-      return (raise(x, exponent) - a) / b;
-    } : (0, _constant.default)(b);
-  }
-
-  function reinterpolate(a, b) {
-    b = raise(b, exponent) - (a = raise(a, exponent));
-    return function (t) {
-      return raise(a + b * t, 1 / exponent);
-    };
-  }
-
-  scale.exponent = function (_) {
-    return arguments.length ? (exponent = +_, domain(domain())) : exponent;
+function transformSymexp(c) {
+  return function (x) {
+    return Math.sign(x) * Math.expm1(Math.abs(x)) * c;
   };
+}
 
-  scale.copy = function () {
-    return (0, _continuous.copy)(scale, pow().exponent(exponent));
+function symlogish(transform) {
+  var c = 1,
+      scale = transform(transformSymlog(c), transformSymexp(c));
+
+  scale.constant = function (_) {
+    return arguments.length ? transform(transformSymlog(c = +_), transformSymexp(c)) : c;
   };
 
   return (0, _linear.linearish)(scale);
 }
 
-function sqrt() {
-  return pow().exponent(0.5);
+function symlog() {
+  var scale = symlogish((0, _continuous.transformer)());
+
+  scale.copy = function () {
+    return (0, _continuous.copy)(scale, symlog()).constant(scale.constant());
+  };
+
+  return _init.initRange.apply(scale, arguments);
 }
-},{"./constant":"C3/c3/node_modules/d3-scale/src/constant.js","./linear":"C3/c3/node_modules/d3-scale/src/linear.js","./continuous":"C3/c3/node_modules/d3-scale/src/continuous.js"}],"C3/c3/node_modules/d3-scale/src/quantile.js":[function(require,module,exports) {
+},{"./linear":"C3/c3/node_modules/d3-scale/src/linear.js","./continuous":"C3/c3/node_modules/d3-scale/src/continuous.js","./init":"C3/c3/node_modules/d3-scale/src/init.js"}],"C3/c3/node_modules/d3-scale/src/pow.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.powish = powish;
+exports.default = pow;
+exports.sqrt = sqrt;
+
+var _linear = require("./linear");
+
+var _continuous = require("./continuous");
+
+var _init = require("./init");
+
+function transformPow(exponent) {
+  return function (x) {
+    return x < 0 ? -Math.pow(-x, exponent) : Math.pow(x, exponent);
+  };
+}
+
+function transformSqrt(x) {
+  return x < 0 ? -Math.sqrt(-x) : Math.sqrt(x);
+}
+
+function transformSquare(x) {
+  return x < 0 ? -x * x : x * x;
+}
+
+function powish(transform) {
+  var scale = transform(_continuous.identity, _continuous.identity),
+      exponent = 1;
+
+  function rescale() {
+    return exponent === 1 ? transform(_continuous.identity, _continuous.identity) : exponent === 0.5 ? transform(transformSqrt, transformSquare) : transform(transformPow(exponent), transformPow(1 / exponent));
+  }
+
+  scale.exponent = function (_) {
+    return arguments.length ? (exponent = +_, rescale()) : exponent;
+  };
+
+  return (0, _linear.linearish)(scale);
+}
+
+function pow() {
+  var scale = powish((0, _continuous.transformer)());
+
+  scale.copy = function () {
+    return (0, _continuous.copy)(scale, pow()).exponent(scale.exponent());
+  };
+
+  _init.initRange.apply(scale, arguments);
+
+  return scale;
+}
+
+function sqrt() {
+  return pow.apply(null, arguments).exponent(0.5);
+}
+},{"./linear":"C3/c3/node_modules/d3-scale/src/linear.js","./continuous":"C3/c3/node_modules/d3-scale/src/continuous.js","./init":"C3/c3/node_modules/d3-scale/src/init.js"}],"C3/c3/node_modules/d3-scale/src/quantile.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19082,10 +19383,13 @@ var _d3Array = require("d3-array");
 
 var _array = require("./array");
 
+var _init = require("./init");
+
 function quantile() {
   var domain = [],
       range = [],
-      thresholds = [];
+      thresholds = [],
+      unknown;
 
   function rescale() {
     var i = 0,
@@ -19098,7 +19402,7 @@ function quantile() {
   }
 
   function scale(x) {
-    if (!isNaN(x = +x)) return range[(0, _d3Array.bisect)(thresholds, x)];
+    return isNaN(x = +x) ? unknown : range[(0, _d3Array.bisect)(thresholds, x)];
   }
 
   scale.invertExtent = function (y) {
@@ -19120,17 +19424,21 @@ function quantile() {
     return arguments.length ? (range = _array.slice.call(_), rescale()) : range.slice();
   };
 
+  scale.unknown = function (_) {
+    return arguments.length ? (unknown = _, scale) : unknown;
+  };
+
   scale.quantiles = function () {
     return thresholds.slice();
   };
 
   scale.copy = function () {
-    return quantile().domain(domain).range(range);
+    return quantile().domain(domain).range(range).unknown(unknown);
   };
 
-  return scale;
+  return _init.initRange.apply(scale, arguments);
 }
-},{"d3-array":"C3/c3/node_modules/d3-array/src/index.js","./array":"C3/c3/node_modules/d3-scale/src/array.js"}],"C3/c3/node_modules/d3-scale/src/quantize.js":[function(require,module,exports) {
+},{"d3-array":"C3/c3/node_modules/d3-array/src/index.js","./array":"C3/c3/node_modules/d3-scale/src/array.js","./init":"C3/c3/node_modules/d3-scale/src/init.js"}],"C3/c3/node_modules/d3-scale/src/quantize.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19144,15 +19452,18 @@ var _array = require("./array");
 
 var _linear = require("./linear");
 
+var _init = require("./init");
+
 function quantize() {
   var x0 = 0,
       x1 = 1,
       n = 1,
       domain = [0.5],
-      range = [0, 1];
+      range = [0, 1],
+      unknown;
 
   function scale(x) {
-    if (x <= x) return range[(0, _d3Array.bisect)(domain, x, 0, n)];
+    return x <= x ? range[(0, _d3Array.bisect)(domain, x, 0, n)] : unknown;
   }
 
   function rescale() {
@@ -19177,13 +19488,21 @@ function quantize() {
     return i < 0 ? [NaN, NaN] : i < 1 ? [x0, domain[0]] : i >= n ? [domain[n - 1], x1] : [domain[i - 1], domain[i]];
   };
 
-  scale.copy = function () {
-    return quantize().domain([x0, x1]).range(range);
+  scale.unknown = function (_) {
+    return arguments.length ? (unknown = _, scale) : scale;
   };
 
-  return (0, _linear.linearish)(scale);
+  scale.thresholds = function () {
+    return domain.slice();
+  };
+
+  scale.copy = function () {
+    return quantize().domain([x0, x1]).range(range).unknown(unknown);
+  };
+
+  return _init.initRange.apply((0, _linear.linearish)(scale), arguments);
 }
-},{"d3-array":"C3/c3/node_modules/d3-array/src/index.js","./array":"C3/c3/node_modules/d3-scale/src/array.js","./linear":"C3/c3/node_modules/d3-scale/src/linear.js"}],"C3/c3/node_modules/d3-scale/src/threshold.js":[function(require,module,exports) {
+},{"d3-array":"C3/c3/node_modules/d3-array/src/index.js","./array":"C3/c3/node_modules/d3-scale/src/array.js","./linear":"C3/c3/node_modules/d3-scale/src/linear.js","./init":"C3/c3/node_modules/d3-scale/src/init.js"}],"C3/c3/node_modules/d3-scale/src/threshold.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19195,13 +19514,16 @@ var _d3Array = require("d3-array");
 
 var _array = require("./array");
 
+var _init = require("./init");
+
 function threshold() {
   var domain = [0.5],
       range = [0, 1],
+      unknown,
       n = 1;
 
   function scale(x) {
-    if (x <= x) return range[(0, _d3Array.bisect)(domain, x, 0, n)];
+    return x <= x ? range[(0, _d3Array.bisect)(domain, x, 0, n)] : unknown;
   }
 
   scale.domain = function (_) {
@@ -19217,13 +19539,17 @@ function threshold() {
     return [domain[i - 1], domain[i]];
   };
 
-  scale.copy = function () {
-    return threshold().domain(domain).range(range);
+  scale.unknown = function (_) {
+    return arguments.length ? (unknown = _, scale) : unknown;
   };
 
-  return scale;
+  scale.copy = function () {
+    return threshold().domain(domain).range(range).unknown(unknown);
+  };
+
+  return _init.initRange.apply(scale, arguments);
 }
-},{"d3-array":"C3/c3/node_modules/d3-array/src/index.js","./array":"C3/c3/node_modules/d3-scale/src/array.js"}],"C3/c3/node_modules/d3-time/src/interval.js":[function(require,module,exports) {
+},{"d3-array":"C3/c3/node_modules/d3-array/src/index.js","./array":"C3/c3/node_modules/d3-scale/src/array.js","./init":"C3/c3/node_modules/d3-scale/src/init.js"}],"C3/c3/node_modules/d3-time/src/interval.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19369,7 +19695,7 @@ var _duration = require("./duration");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var second = (0, _interval.default)(function (date) {
-  date.setTime(Math.floor(date / _duration.durationSecond) * _duration.durationSecond);
+  date.setTime(date - date.getMilliseconds());
 }, function (date, step) {
   date.setTime(+date + step * _duration.durationSecond);
 }, function (start, end) {
@@ -19396,7 +19722,7 @@ var _duration = require("./duration");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var minute = (0, _interval.default)(function (date) {
-  date.setTime(Math.floor(date / _duration.durationMinute) * _duration.durationMinute);
+  date.setTime(date - date.getMilliseconds() - date.getSeconds() * _duration.durationSecond);
 }, function (date, step) {
   date.setTime(+date + step * _duration.durationMinute);
 }, function (start, end) {
@@ -19423,10 +19749,7 @@ var _duration = require("./duration");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var hour = (0, _interval.default)(function (date) {
-  var offset = date.getTimezoneOffset() * _duration.durationMinute % _duration.durationHour;
-
-  if (offset < 0) offset += _duration.durationHour;
-  date.setTime(Math.floor((+date - offset) / _duration.durationHour) * _duration.durationHour + offset);
+  date.setTime(date - date.getMilliseconds() - date.getSeconds() * _duration.durationSecond - date.getMinutes() * _duration.durationMinute);
 }, function (date, step) {
   date.setTime(+date + step * _duration.durationHour);
 }, function (start, end) {
@@ -21005,8 +21328,6 @@ exports.default = _default;
 
 var _d3Array = require("d3-array");
 
-var _d3Interpolate = require("d3-interpolate");
-
 var _d3Time = require("d3-time");
 
 var _d3TimeFormat = require("d3-time-format");
@@ -21014,6 +21335,8 @@ var _d3TimeFormat = require("d3-time-format");
 var _array = require("./array");
 
 var _continuous = _interopRequireWildcard(require("./continuous"));
+
+var _init = require("./init");
 
 var _nice = _interopRequireDefault(require("./nice"));
 
@@ -21038,7 +21361,7 @@ function number(t) {
 }
 
 function calendar(year, month, week, day, hour, minute, second, millisecond, format) {
-  var scale = (0, _continuous.default)(_continuous.deinterpolateLinear, _d3Interpolate.interpolateNumber),
+  var scale = (0, _continuous.default)(_continuous.identity, _continuous.identity),
       invert = scale.invert,
       domain = scale.domain;
   var formatMillisecond = format(".%L"),
@@ -21120,9 +21443,9 @@ function calendar(year, month, week, day, hour, minute, second, millisecond, for
 }
 
 function _default() {
-  return calendar(_d3Time.timeYear, _d3Time.timeMonth, _d3Time.timeWeek, _d3Time.timeDay, _d3Time.timeHour, _d3Time.timeMinute, _d3Time.timeSecond, _d3Time.timeMillisecond, _d3TimeFormat.timeFormat).domain([new Date(2000, 0, 1), new Date(2000, 0, 2)]);
+  return _init.initRange.apply(calendar(_d3Time.timeYear, _d3Time.timeMonth, _d3Time.timeWeek, _d3Time.timeDay, _d3Time.timeHour, _d3Time.timeMinute, _d3Time.timeSecond, _d3Time.timeMillisecond, _d3TimeFormat.timeFormat).domain([new Date(2000, 0, 1), new Date(2000, 0, 2)]), arguments);
 }
-},{"d3-array":"C3/c3/node_modules/d3-array/src/index.js","d3-interpolate":"C3/c3/node_modules/d3-interpolate/src/index.js","d3-time":"C3/c3/node_modules/d3-time/src/index.js","d3-time-format":"C3/c3/node_modules/d3-time-format/src/index.js","./array":"C3/c3/node_modules/d3-scale/src/array.js","./continuous":"C3/c3/node_modules/d3-scale/src/continuous.js","./nice":"C3/c3/node_modules/d3-scale/src/nice.js"}],"C3/c3/node_modules/d3-scale/src/utcTime.js":[function(require,module,exports) {
+},{"d3-array":"C3/c3/node_modules/d3-array/src/index.js","d3-time":"C3/c3/node_modules/d3-time/src/index.js","d3-time-format":"C3/c3/node_modules/d3-time-format/src/index.js","./array":"C3/c3/node_modules/d3-scale/src/array.js","./continuous":"C3/c3/node_modules/d3-scale/src/continuous.js","./init":"C3/c3/node_modules/d3-scale/src/init.js","./nice":"C3/c3/node_modules/d3-scale/src/nice.js"}],"C3/c3/node_modules/d3-scale/src/utcTime.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -21136,32 +21459,53 @@ var _d3TimeFormat = require("d3-time-format");
 
 var _d3Time = require("d3-time");
 
+var _init = require("./init");
+
 function _default() {
-  return (0, _time.calendar)(_d3Time.utcYear, _d3Time.utcMonth, _d3Time.utcWeek, _d3Time.utcDay, _d3Time.utcHour, _d3Time.utcMinute, _d3Time.utcSecond, _d3Time.utcMillisecond, _d3TimeFormat.utcFormat).domain([Date.UTC(2000, 0, 1), Date.UTC(2000, 0, 2)]);
+  return _init.initRange.apply((0, _time.calendar)(_d3Time.utcYear, _d3Time.utcMonth, _d3Time.utcWeek, _d3Time.utcDay, _d3Time.utcHour, _d3Time.utcMinute, _d3Time.utcSecond, _d3Time.utcMillisecond, _d3TimeFormat.utcFormat).domain([Date.UTC(2000, 0, 1), Date.UTC(2000, 0, 2)]), arguments);
 }
-},{"./time":"C3/c3/node_modules/d3-scale/src/time.js","d3-time-format":"C3/c3/node_modules/d3-time-format/src/index.js","d3-time":"C3/c3/node_modules/d3-time/src/index.js"}],"C3/c3/node_modules/d3-scale/src/sequential.js":[function(require,module,exports) {
+},{"./time":"C3/c3/node_modules/d3-scale/src/time.js","d3-time-format":"C3/c3/node_modules/d3-time-format/src/index.js","d3-time":"C3/c3/node_modules/d3-time/src/index.js","./init":"C3/c3/node_modules/d3-scale/src/init.js"}],"C3/c3/node_modules/d3-scale/src/sequential.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.copy = copy;
 exports.default = sequential;
+exports.sequentialLog = sequentialLog;
+exports.sequentialSymlog = sequentialSymlog;
+exports.sequentialPow = sequentialPow;
+exports.sequentialSqrt = sequentialSqrt;
+
+var _continuous = require("./continuous");
+
+var _init = require("./init");
 
 var _linear = require("./linear");
 
-function sequential(interpolator) {
+var _log = require("./log");
+
+var _symlog = require("./symlog");
+
+var _pow = require("./pow");
+
+function transformer() {
   var x0 = 0,
       x1 = 1,
-      k10 = 1,
-      clamp = false;
+      t0,
+      t1,
+      k10,
+      transform,
+      interpolator = _continuous.identity,
+      clamp = false,
+      unknown;
 
   function scale(x) {
-    var t = (x - x0) * k10;
-    return interpolator(clamp ? Math.max(0, Math.min(1, t)) : t);
+    return isNaN(x = +x) ? unknown : interpolator(k10 === 0 ? 0.5 : (x = (transform(x) - t0) * k10, clamp ? Math.max(0, Math.min(1, x)) : x));
   }
 
   scale.domain = function (_) {
-    return arguments.length ? (x0 = +_[0], x1 = +_[1], k10 = x0 === x1 ? 0 : 1 / (x1 - x0), scale) : [x0, x1];
+    return arguments.length ? (t0 = transform(x0 = +_[0]), t1 = transform(x1 = +_[1]), k10 = t0 === t1 ? 0 : 1 / (t1 - t0), scale) : [x0, x1];
   };
 
   scale.clamp = function (_) {
@@ -21172,37 +21516,151 @@ function sequential(interpolator) {
     return arguments.length ? (interpolator = _, scale) : interpolator;
   };
 
-  scale.copy = function () {
-    return sequential(interpolator).domain([x0, x1]).clamp(clamp);
+  scale.unknown = function (_) {
+    return arguments.length ? (unknown = _, scale) : unknown;
   };
 
-  return (0, _linear.linearish)(scale);
+  return function (t) {
+    transform = t, t0 = t(x0), t1 = t(x1), k10 = t0 === t1 ? 0 : 1 / (t1 - t0);
+    return scale;
+  };
 }
-},{"./linear":"C3/c3/node_modules/d3-scale/src/linear.js"}],"C3/c3/node_modules/d3-scale/src/diverging.js":[function(require,module,exports) {
+
+function copy(source, target) {
+  return target.domain(source.domain()).interpolator(source.interpolator()).clamp(source.clamp()).unknown(source.unknown());
+}
+
+function sequential() {
+  var scale = (0, _linear.linearish)(transformer()(_continuous.identity));
+
+  scale.copy = function () {
+    return copy(scale, sequential());
+  };
+
+  return _init.initInterpolator.apply(scale, arguments);
+}
+
+function sequentialLog() {
+  var scale = (0, _log.loggish)(transformer()).domain([1, 10]);
+
+  scale.copy = function () {
+    return copy(scale, sequentialLog()).base(scale.base());
+  };
+
+  return _init.initInterpolator.apply(scale, arguments);
+}
+
+function sequentialSymlog() {
+  var scale = (0, _symlog.symlogish)(transformer());
+
+  scale.copy = function () {
+    return copy(scale, sequentialSymlog()).constant(scale.constant());
+  };
+
+  return _init.initInterpolator.apply(scale, arguments);
+}
+
+function sequentialPow() {
+  var scale = (0, _pow.powish)(transformer());
+
+  scale.copy = function () {
+    return copy(scale, sequentialPow()).exponent(scale.exponent());
+  };
+
+  return _init.initInterpolator.apply(scale, arguments);
+}
+
+function sequentialSqrt() {
+  return sequentialPow.apply(null, arguments).exponent(0.5);
+}
+},{"./continuous":"C3/c3/node_modules/d3-scale/src/continuous.js","./init":"C3/c3/node_modules/d3-scale/src/init.js","./linear":"C3/c3/node_modules/d3-scale/src/linear.js","./log":"C3/c3/node_modules/d3-scale/src/log.js","./symlog":"C3/c3/node_modules/d3-scale/src/symlog.js","./pow":"C3/c3/node_modules/d3-scale/src/pow.js"}],"C3/c3/node_modules/d3-scale/src/sequentialQuantile.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = sequentialQuantile;
+
+var _d3Array = require("d3-array");
+
+var _continuous = require("./continuous");
+
+var _init = require("./init");
+
+function sequentialQuantile() {
+  var domain = [],
+      interpolator = _continuous.identity;
+
+  function scale(x) {
+    if (!isNaN(x = +x)) return interpolator(((0, _d3Array.bisect)(domain, x) - 1) / (domain.length - 1));
+  }
+
+  scale.domain = function (_) {
+    if (!arguments.length) return domain.slice();
+    domain = [];
+
+    for (var i = 0, n = _.length, d; i < n; ++i) if (d = _[i], d != null && !isNaN(d = +d)) domain.push(d);
+
+    domain.sort(_d3Array.ascending);
+    return scale;
+  };
+
+  scale.interpolator = function (_) {
+    return arguments.length ? (interpolator = _, scale) : interpolator;
+  };
+
+  scale.copy = function () {
+    return sequentialQuantile(interpolator).domain(domain);
+  };
+
+  return _init.initInterpolator.apply(scale, arguments);
+}
+},{"d3-array":"C3/c3/node_modules/d3-array/src/index.js","./continuous":"C3/c3/node_modules/d3-scale/src/continuous.js","./init":"C3/c3/node_modules/d3-scale/src/init.js"}],"C3/c3/node_modules/d3-scale/src/diverging.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = diverging;
+exports.divergingLog = divergingLog;
+exports.divergingSymlog = divergingSymlog;
+exports.divergingPow = divergingPow;
+exports.divergingSqrt = divergingSqrt;
+
+var _continuous = require("./continuous");
+
+var _init = require("./init");
 
 var _linear = require("./linear");
 
-function diverging(interpolator) {
+var _log = require("./log");
+
+var _sequential = require("./sequential");
+
+var _symlog = require("./symlog");
+
+var _pow = require("./pow");
+
+function transformer() {
   var x0 = 0,
       x1 = 0.5,
       x2 = 1,
-      k10 = 1,
-      k21 = 1,
-      clamp = false;
+      t0,
+      t1,
+      t2,
+      k10,
+      k21,
+      interpolator = _continuous.identity,
+      transform,
+      clamp = false,
+      unknown;
 
   function scale(x) {
-    var t = 0.5 + ((x = +x) - x1) * (x < x1 ? k10 : k21);
-    return interpolator(clamp ? Math.max(0, Math.min(1, t)) : t);
+    return isNaN(x = +x) ? unknown : (x = 0.5 + ((x = +transform(x)) - t1) * (x < t1 ? k10 : k21), interpolator(clamp ? Math.max(0, Math.min(1, x)) : x));
   }
 
   scale.domain = function (_) {
-    return arguments.length ? (x0 = +_[0], x1 = +_[1], x2 = +_[2], k10 = x0 === x1 ? 0 : 0.5 / (x1 - x0), k21 = x1 === x2 ? 0 : 0.5 / (x2 - x1), scale) : [x0, x1, x2];
+    return arguments.length ? (t0 = transform(x0 = +_[0]), t1 = transform(x1 = +_[1]), t2 = transform(x2 = +_[2]), k10 = t0 === t1 ? 0 : 0.5 / (t1 - t0), k21 = t1 === t2 ? 0 : 0.5 / (t2 - t1), scale) : [x0, x1, x2];
   };
 
   scale.clamp = function (_) {
@@ -21213,13 +21671,60 @@ function diverging(interpolator) {
     return arguments.length ? (interpolator = _, scale) : interpolator;
   };
 
-  scale.copy = function () {
-    return diverging(interpolator).domain([x0, x1, x2]).clamp(clamp);
+  scale.unknown = function (_) {
+    return arguments.length ? (unknown = _, scale) : unknown;
   };
 
-  return (0, _linear.linearish)(scale);
+  return function (t) {
+    transform = t, t0 = t(x0), t1 = t(x1), t2 = t(x2), k10 = t0 === t1 ? 0 : 0.5 / (t1 - t0), k21 = t1 === t2 ? 0 : 0.5 / (t2 - t1);
+    return scale;
+  };
 }
-},{"./linear":"C3/c3/node_modules/d3-scale/src/linear.js"}],"C3/c3/node_modules/d3-scale/src/index.js":[function(require,module,exports) {
+
+function diverging() {
+  var scale = (0, _linear.linearish)(transformer()(_continuous.identity));
+
+  scale.copy = function () {
+    return (0, _sequential.copy)(scale, diverging());
+  };
+
+  return _init.initInterpolator.apply(scale, arguments);
+}
+
+function divergingLog() {
+  var scale = (0, _log.loggish)(transformer()).domain([0.1, 1, 10]);
+
+  scale.copy = function () {
+    return (0, _sequential.copy)(scale, divergingLog()).base(scale.base());
+  };
+
+  return _init.initInterpolator.apply(scale, arguments);
+}
+
+function divergingSymlog() {
+  var scale = (0, _symlog.symlogish)(transformer());
+
+  scale.copy = function () {
+    return (0, _sequential.copy)(scale, divergingSymlog()).constant(scale.constant());
+  };
+
+  return _init.initInterpolator.apply(scale, arguments);
+}
+
+function divergingPow() {
+  var scale = (0, _pow.powish)(transformer());
+
+  scale.copy = function () {
+    return (0, _sequential.copy)(scale, divergingPow()).exponent(scale.exponent());
+  };
+
+  return _init.initInterpolator.apply(scale, arguments);
+}
+
+function divergingSqrt() {
+  return divergingPow.apply(null, arguments).exponent(0.5);
+}
+},{"./continuous":"C3/c3/node_modules/d3-scale/src/continuous.js","./init":"C3/c3/node_modules/d3-scale/src/init.js","./linear":"C3/c3/node_modules/d3-scale/src/linear.js","./log":"C3/c3/node_modules/d3-scale/src/log.js","./sequential":"C3/c3/node_modules/d3-scale/src/sequential.js","./symlog":"C3/c3/node_modules/d3-scale/src/symlog.js","./pow":"C3/c3/node_modules/d3-scale/src/pow.js"}],"C3/c3/node_modules/d3-scale/src/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -21253,6 +21758,12 @@ Object.defineProperty(exports, "scaleLog", {
   enumerable: true,
   get: function () {
     return _log.default;
+  }
+});
+Object.defineProperty(exports, "scaleSymlog", {
+  enumerable: true,
+  get: function () {
+    return _symlog.default;
   }
 });
 Object.defineProperty(exports, "scaleOrdinal", {
@@ -21315,10 +21826,70 @@ Object.defineProperty(exports, "scaleSequential", {
     return _sequential.default;
   }
 });
+Object.defineProperty(exports, "scaleSequentialLog", {
+  enumerable: true,
+  get: function () {
+    return _sequential.sequentialLog;
+  }
+});
+Object.defineProperty(exports, "scaleSequentialPow", {
+  enumerable: true,
+  get: function () {
+    return _sequential.sequentialPow;
+  }
+});
+Object.defineProperty(exports, "scaleSequentialSqrt", {
+  enumerable: true,
+  get: function () {
+    return _sequential.sequentialSqrt;
+  }
+});
+Object.defineProperty(exports, "scaleSequentialSymlog", {
+  enumerable: true,
+  get: function () {
+    return _sequential.sequentialSymlog;
+  }
+});
+Object.defineProperty(exports, "scaleSequentialQuantile", {
+  enumerable: true,
+  get: function () {
+    return _sequentialQuantile.default;
+  }
+});
 Object.defineProperty(exports, "scaleDiverging", {
   enumerable: true,
   get: function () {
     return _diverging.default;
+  }
+});
+Object.defineProperty(exports, "scaleDivergingLog", {
+  enumerable: true,
+  get: function () {
+    return _diverging.divergingLog;
+  }
+});
+Object.defineProperty(exports, "scaleDivergingPow", {
+  enumerable: true,
+  get: function () {
+    return _diverging.divergingPow;
+  }
+});
+Object.defineProperty(exports, "scaleDivergingSqrt", {
+  enumerable: true,
+  get: function () {
+    return _diverging.divergingSqrt;
+  }
+});
+Object.defineProperty(exports, "scaleDivergingSymlog", {
+  enumerable: true,
+  get: function () {
+    return _diverging.divergingSymlog;
+  }
+});
+Object.defineProperty(exports, "tickFormat", {
+  enumerable: true,
+  get: function () {
+    return _tickFormat.default;
   }
 });
 
@@ -21329,6 +21900,8 @@ var _identity = _interopRequireDefault(require("./identity"));
 var _linear = _interopRequireDefault(require("./linear"));
 
 var _log = _interopRequireDefault(require("./log"));
+
+var _symlog = _interopRequireDefault(require("./symlog"));
 
 var _ordinal = _interopRequireWildcard(require("./ordinal"));
 
@@ -21344,14 +21917,18 @@ var _time = _interopRequireDefault(require("./time"));
 
 var _utcTime = _interopRequireDefault(require("./utcTime"));
 
-var _sequential = _interopRequireDefault(require("./sequential"));
+var _sequential = _interopRequireWildcard(require("./sequential"));
 
-var _diverging = _interopRequireDefault(require("./diverging"));
+var _sequentialQuantile = _interopRequireDefault(require("./sequentialQuantile"));
+
+var _diverging = _interopRequireWildcard(require("./diverging"));
+
+var _tickFormat = _interopRequireDefault(require("./tickFormat"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
-},{"./band":"C3/c3/node_modules/d3-scale/src/band.js","./identity":"C3/c3/node_modules/d3-scale/src/identity.js","./linear":"C3/c3/node_modules/d3-scale/src/linear.js","./log":"C3/c3/node_modules/d3-scale/src/log.js","./ordinal":"C3/c3/node_modules/d3-scale/src/ordinal.js","./pow":"C3/c3/node_modules/d3-scale/src/pow.js","./quantile":"C3/c3/node_modules/d3-scale/src/quantile.js","./quantize":"C3/c3/node_modules/d3-scale/src/quantize.js","./threshold":"C3/c3/node_modules/d3-scale/src/threshold.js","./time":"C3/c3/node_modules/d3-scale/src/time.js","./utcTime":"C3/c3/node_modules/d3-scale/src/utcTime.js","./sequential":"C3/c3/node_modules/d3-scale/src/sequential.js","./diverging":"C3/c3/node_modules/d3-scale/src/diverging.js"}],"C3/c3/node_modules/d3-scale-chromatic/src/colors.js":[function(require,module,exports) {
+},{"./band":"C3/c3/node_modules/d3-scale/src/band.js","./identity":"C3/c3/node_modules/d3-scale/src/identity.js","./linear":"C3/c3/node_modules/d3-scale/src/linear.js","./log":"C3/c3/node_modules/d3-scale/src/log.js","./symlog":"C3/c3/node_modules/d3-scale/src/symlog.js","./ordinal":"C3/c3/node_modules/d3-scale/src/ordinal.js","./pow":"C3/c3/node_modules/d3-scale/src/pow.js","./quantile":"C3/c3/node_modules/d3-scale/src/quantile.js","./quantize":"C3/c3/node_modules/d3-scale/src/quantize.js","./threshold":"C3/c3/node_modules/d3-scale/src/threshold.js","./time":"C3/c3/node_modules/d3-scale/src/time.js","./utcTime":"C3/c3/node_modules/d3-scale/src/utcTime.js","./sequential":"C3/c3/node_modules/d3-scale/src/sequential.js","./sequentialQuantile":"C3/c3/node_modules/d3-scale/src/sequentialQuantile.js","./diverging":"C3/c3/node_modules/d3-scale/src/diverging.js","./tickFormat":"C3/c3/node_modules/d3-scale/src/tickFormat.js"}],"C3/c3/node_modules/d3-scale-chromatic/src/colors.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -22763,7 +23340,9 @@ function intersect(x0, y0, x1, y1, x2, y2, x3, y3) {
       y10 = y1 - y0,
       x32 = x3 - x2,
       y32 = y3 - y2,
-      t = (x32 * (y0 - y2) - y32 * (x0 - x2)) / (y32 * x10 - x32 * y10);
+      t = y32 * x10 - x32 * y10;
+  if (t * t < _math.epsilon) return;
+  t = (x32 * (y0 - y2) - y32 * (x0 - x2)) / t;
   return [x0 + t * x10, y0 + t * y10];
 } // Compute perpendicular offset line of length rc.
 // http://mathworld.wolfram.com/Circle-LineIntersection.html
@@ -22873,11 +23452,11 @@ function _default() {
             var x11 = r1 * (0, _math.cos)(a11),
                 y11 = r1 * (0, _math.sin)(a11),
                 x00 = r0 * (0, _math.cos)(a00),
-                y00 = r0 * (0, _math.sin)(a00); // Restrict the corner radius according to the sector angle.
+                y00 = r0 * (0, _math.sin)(a00),
+                oc; // Restrict the corner radius according to the sector angle.
 
-            if (da < _math.pi) {
-              var oc = da0 > _math.epsilon ? intersect(x01, y01, x00, y00, x11, y11, x10, y10) : [x10, y10],
-                  ax = x01 - oc[0],
+            if (da < _math.pi && (oc = intersect(x01, y01, x00, y00, x11, y11, x10, y10))) {
+              var ax = x01 - oc[0],
                   ay = y01 - oc[1],
                   bx = x11 - oc[0],
                   by = y11 - oc[1],
@@ -25161,7 +25740,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = _default;
 
 function _default(series, order) {
-  if (!((n = series.length) > 1)) return;
+  if (!((n = series.length) > 0)) return;
 
   for (var i, j = 0, d, dy, yp, yn, n, m = series[order[0]].length; j < m; ++j) {
     for (yp = yn = 0, i = 0; i < n; ++i) {
@@ -25237,7 +25816,37 @@ function _default(series, order) {
   s0[j - 1][1] += s0[j - 1][0] = y;
   (0, _none.default)(series, order);
 }
-},{"./none":"C3/c3/node_modules/d3-shape/src/offset/none.js"}],"C3/c3/node_modules/d3-shape/src/order/ascending.js":[function(require,module,exports) {
+},{"./none":"C3/c3/node_modules/d3-shape/src/offset/none.js"}],"C3/c3/node_modules/d3-shape/src/order/appearance.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+var _none = _interopRequireDefault(require("./none"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _default(series) {
+  var peaks = series.map(peak);
+  return (0, _none.default)(series).sort(function (a, b) {
+    return peaks[a] - peaks[b];
+  });
+}
+
+function peak(series) {
+  var i = -1,
+      j = 0,
+      n = series.length,
+      vi,
+      vj = -Infinity;
+
+  while (++i < n) if ((vi = +series[i][1]) > vj) vj = vi, j = i;
+
+  return j;
+}
+},{"./none":"C3/c3/node_modules/d3-shape/src/order/none.js"}],"C3/c3/node_modules/d3-shape/src/order/ascending.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25290,7 +25899,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _none = _interopRequireDefault(require("./none"));
+var _appearance = _interopRequireDefault(require("./appearance"));
 
 var _ascending = require("./ascending");
 
@@ -25301,9 +25910,7 @@ function _default(series) {
       i,
       j,
       sums = series.map(_ascending.sum),
-      order = (0, _none.default)(series).sort(function (a, b) {
-    return sums[b] - sums[a];
-  }),
+      order = (0, _appearance.default)(series),
       top = 0,
       bottom = 0,
       tops = [],
@@ -25323,7 +25930,7 @@ function _default(series) {
 
   return bottoms.reverse().concat(tops);
 }
-},{"./none":"C3/c3/node_modules/d3-shape/src/order/none.js","./ascending":"C3/c3/node_modules/d3-shape/src/order/ascending.js"}],"C3/c3/node_modules/d3-shape/src/order/reverse.js":[function(require,module,exports) {
+},{"./appearance":"C3/c3/node_modules/d3-shape/src/order/appearance.js","./ascending":"C3/c3/node_modules/d3-shape/src/order/ascending.js"}],"C3/c3/node_modules/d3-shape/src/order/reverse.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25614,6 +26221,12 @@ Object.defineProperty(exports, "stackOffsetWiggle", {
     return _wiggle.default;
   }
 });
+Object.defineProperty(exports, "stackOrderAppearance", {
+  enumerable: true,
+  get: function () {
+    return _appearance.default;
+  }
+});
 Object.defineProperty(exports, "stackOrderAscending", {
   enumerable: true,
   get: function () {
@@ -25719,6 +26332,8 @@ var _silhouette = _interopRequireDefault(require("./offset/silhouette"));
 
 var _wiggle = _interopRequireDefault(require("./offset/wiggle"));
 
+var _appearance = _interopRequireDefault(require("./order/appearance"));
+
 var _ascending = _interopRequireDefault(require("./order/ascending"));
 
 var _descending = _interopRequireDefault(require("./order/descending"));
@@ -25732,7 +26347,7 @@ var _reverse = _interopRequireDefault(require("./order/reverse"));
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./arc":"C3/c3/node_modules/d3-shape/src/arc.js","./area":"C3/c3/node_modules/d3-shape/src/area.js","./line":"C3/c3/node_modules/d3-shape/src/line.js","./pie":"C3/c3/node_modules/d3-shape/src/pie.js","./areaRadial":"C3/c3/node_modules/d3-shape/src/areaRadial.js","./lineRadial":"C3/c3/node_modules/d3-shape/src/lineRadial.js","./pointRadial":"C3/c3/node_modules/d3-shape/src/pointRadial.js","./link/index":"C3/c3/node_modules/d3-shape/src/link/index.js","./symbol":"C3/c3/node_modules/d3-shape/src/symbol.js","./symbol/circle":"C3/c3/node_modules/d3-shape/src/symbol/circle.js","./symbol/cross":"C3/c3/node_modules/d3-shape/src/symbol/cross.js","./symbol/diamond":"C3/c3/node_modules/d3-shape/src/symbol/diamond.js","./symbol/square":"C3/c3/node_modules/d3-shape/src/symbol/square.js","./symbol/star":"C3/c3/node_modules/d3-shape/src/symbol/star.js","./symbol/triangle":"C3/c3/node_modules/d3-shape/src/symbol/triangle.js","./symbol/wye":"C3/c3/node_modules/d3-shape/src/symbol/wye.js","./curve/basisClosed":"C3/c3/node_modules/d3-shape/src/curve/basisClosed.js","./curve/basisOpen":"C3/c3/node_modules/d3-shape/src/curve/basisOpen.js","./curve/basis":"C3/c3/node_modules/d3-shape/src/curve/basis.js","./curve/bundle":"C3/c3/node_modules/d3-shape/src/curve/bundle.js","./curve/cardinalClosed":"C3/c3/node_modules/d3-shape/src/curve/cardinalClosed.js","./curve/cardinalOpen":"C3/c3/node_modules/d3-shape/src/curve/cardinalOpen.js","./curve/cardinal":"C3/c3/node_modules/d3-shape/src/curve/cardinal.js","./curve/catmullRomClosed":"C3/c3/node_modules/d3-shape/src/curve/catmullRomClosed.js","./curve/catmullRomOpen":"C3/c3/node_modules/d3-shape/src/curve/catmullRomOpen.js","./curve/catmullRom":"C3/c3/node_modules/d3-shape/src/curve/catmullRom.js","./curve/linearClosed":"C3/c3/node_modules/d3-shape/src/curve/linearClosed.js","./curve/linear":"C3/c3/node_modules/d3-shape/src/curve/linear.js","./curve/monotone":"C3/c3/node_modules/d3-shape/src/curve/monotone.js","./curve/natural":"C3/c3/node_modules/d3-shape/src/curve/natural.js","./curve/step":"C3/c3/node_modules/d3-shape/src/curve/step.js","./stack":"C3/c3/node_modules/d3-shape/src/stack.js","./offset/expand":"C3/c3/node_modules/d3-shape/src/offset/expand.js","./offset/diverging":"C3/c3/node_modules/d3-shape/src/offset/diverging.js","./offset/none":"C3/c3/node_modules/d3-shape/src/offset/none.js","./offset/silhouette":"C3/c3/node_modules/d3-shape/src/offset/silhouette.js","./offset/wiggle":"C3/c3/node_modules/d3-shape/src/offset/wiggle.js","./order/ascending":"C3/c3/node_modules/d3-shape/src/order/ascending.js","./order/descending":"C3/c3/node_modules/d3-shape/src/order/descending.js","./order/insideOut":"C3/c3/node_modules/d3-shape/src/order/insideOut.js","./order/none":"C3/c3/node_modules/d3-shape/src/order/none.js","./order/reverse":"C3/c3/node_modules/d3-shape/src/order/reverse.js"}],"C3/c3/node_modules/d3-voronoi/src/constant.js":[function(require,module,exports) {
+},{"./arc":"C3/c3/node_modules/d3-shape/src/arc.js","./area":"C3/c3/node_modules/d3-shape/src/area.js","./line":"C3/c3/node_modules/d3-shape/src/line.js","./pie":"C3/c3/node_modules/d3-shape/src/pie.js","./areaRadial":"C3/c3/node_modules/d3-shape/src/areaRadial.js","./lineRadial":"C3/c3/node_modules/d3-shape/src/lineRadial.js","./pointRadial":"C3/c3/node_modules/d3-shape/src/pointRadial.js","./link/index":"C3/c3/node_modules/d3-shape/src/link/index.js","./symbol":"C3/c3/node_modules/d3-shape/src/symbol.js","./symbol/circle":"C3/c3/node_modules/d3-shape/src/symbol/circle.js","./symbol/cross":"C3/c3/node_modules/d3-shape/src/symbol/cross.js","./symbol/diamond":"C3/c3/node_modules/d3-shape/src/symbol/diamond.js","./symbol/square":"C3/c3/node_modules/d3-shape/src/symbol/square.js","./symbol/star":"C3/c3/node_modules/d3-shape/src/symbol/star.js","./symbol/triangle":"C3/c3/node_modules/d3-shape/src/symbol/triangle.js","./symbol/wye":"C3/c3/node_modules/d3-shape/src/symbol/wye.js","./curve/basisClosed":"C3/c3/node_modules/d3-shape/src/curve/basisClosed.js","./curve/basisOpen":"C3/c3/node_modules/d3-shape/src/curve/basisOpen.js","./curve/basis":"C3/c3/node_modules/d3-shape/src/curve/basis.js","./curve/bundle":"C3/c3/node_modules/d3-shape/src/curve/bundle.js","./curve/cardinalClosed":"C3/c3/node_modules/d3-shape/src/curve/cardinalClosed.js","./curve/cardinalOpen":"C3/c3/node_modules/d3-shape/src/curve/cardinalOpen.js","./curve/cardinal":"C3/c3/node_modules/d3-shape/src/curve/cardinal.js","./curve/catmullRomClosed":"C3/c3/node_modules/d3-shape/src/curve/catmullRomClosed.js","./curve/catmullRomOpen":"C3/c3/node_modules/d3-shape/src/curve/catmullRomOpen.js","./curve/catmullRom":"C3/c3/node_modules/d3-shape/src/curve/catmullRom.js","./curve/linearClosed":"C3/c3/node_modules/d3-shape/src/curve/linearClosed.js","./curve/linear":"C3/c3/node_modules/d3-shape/src/curve/linear.js","./curve/monotone":"C3/c3/node_modules/d3-shape/src/curve/monotone.js","./curve/natural":"C3/c3/node_modules/d3-shape/src/curve/natural.js","./curve/step":"C3/c3/node_modules/d3-shape/src/curve/step.js","./stack":"C3/c3/node_modules/d3-shape/src/stack.js","./offset/expand":"C3/c3/node_modules/d3-shape/src/offset/expand.js","./offset/diverging":"C3/c3/node_modules/d3-shape/src/offset/diverging.js","./offset/none":"C3/c3/node_modules/d3-shape/src/offset/none.js","./offset/silhouette":"C3/c3/node_modules/d3-shape/src/offset/silhouette.js","./offset/wiggle":"C3/c3/node_modules/d3-shape/src/offset/wiggle.js","./order/appearance":"C3/c3/node_modules/d3-shape/src/order/appearance.js","./order/ascending":"C3/c3/node_modules/d3-shape/src/order/ascending.js","./order/descending":"C3/c3/node_modules/d3-shape/src/order/descending.js","./order/insideOut":"C3/c3/node_modules/d3-shape/src/order/insideOut.js","./order/none":"C3/c3/node_modules/d3-shape/src/order/none.js","./order/reverse":"C3/c3/node_modules/d3-shape/src/order/reverse.js"}],"C3/c3/node_modules/d3-voronoi/src/constant.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -38590,7 +39205,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62646" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56696" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
