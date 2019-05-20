@@ -58784,7 +58784,7 @@ function test(datas) {
 
         $("#envoi").click(function (e) {
           e.preventDefault();
-          $.post('http://192.168.0.169:8080/json/modif', {
+          $.post('http://192.168.0.99:8080/json/modif', {
             natureparcelle: $("#natureparcelle").val(),
             logement: $("#logement").val(),
             id_parc: $("#id_parc").val(),
@@ -58854,7 +58854,7 @@ function test(datas) {
           e.preventDefault();
 
           if (confirm("Êtes-vous sûr de vouloir ajouter cette parcelle ?")) {
-            $.post('http://192.168.0.169:8080/json/ajout', {
+            $.post('http://192.168.0.99:8080/json/ajout', {
               id_parc: $("#id_parc").val(),
               nature: $("#natureparcelle").val(),
               logement: $("#logement").val(),
@@ -58918,7 +58918,7 @@ function test(datas) {
     e.preventDefault();
 
     if (confirm("Êtes-vous sûr de vouloir supprimer cette parcelle ?")) {
-      $.post('http://192.168.0.169:8080/json/suppr', {
+      $.post('http://192.168.0.99:8080/json/suppr', {
         id_parc: $("#id_parc").val()
       }, function (data) {
         if (data == 'Success') {
@@ -58957,7 +58957,7 @@ function loadJSON(callback) {
     }
   };
 
-  xhr.open("GET", "http://192.168.0.169:8080/json/nature", true); // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.open("GET", "http://192.168.0.99:8080/json/nature", true); // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
   xhr.send(null);
 }
@@ -58991,7 +58991,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55332" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61126" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
