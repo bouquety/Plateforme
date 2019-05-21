@@ -58686,7 +58686,7 @@ function test(datas) {
   }); // déclaration de la carte
 
   var map = new _Map.default({
-    layers: [baseLayer, Terrain, foncier2, satellite, IGN, GPU],
+    layers: [baseLayer, Terrain, satellite, foncier2, IGN, GPU],
     target: 'map',
     // container: 'map',
     renderer: 'canvas',
@@ -58738,12 +58738,20 @@ function test(datas) {
   }); ///////////////////////////////////////////////////////////////// Affichage Nature ///////////////////////////////////////////////////////////////////
   //Interaction avec la carte
 
+  $("#reduire").click(function (e) {
+    e.preventDefault();
+    $("#card").fadeOut("slow");
+    var etat = document.getElementById('card').style.display;
+    etat = "";
+    console.log(etat);
+  });
   map.on("click", function (evt) {
     map.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
       var etat = document.getElementById('card').style.display;
+      console.log(etat);
 
-      if (etat != "none") {
-        document.getElementById('card').style.display = "inline";
+      if (etat == "" || etat == "none") {
+        $("#card").fadeIn("slow");
       } // Création de la liste de nature des parcelles 
 
 
@@ -58991,7 +58999,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61126" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57349" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

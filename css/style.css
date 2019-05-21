@@ -81,7 +81,9 @@
   }
 	.nav-tabs .nav-link:hover{
 	  background-color: rgba(59, 59, 59, 0.158);
-	  }
+    }
+    
+
 	  .nav-tabs .nav-link{
 		margin : 0;
 		width: 100%;
@@ -90,33 +92,50 @@
 		} 
 		
   
-	  
-  
-  /* ------------------------------------------------------------------ */
-  /* LEGENDE */
-  /* ------------------------------------------------------------------ */
-  
- 
-  .carreun{
-  width:30px;
-  height:30px;
-  background:#CC0033;
+  nav#Fonciers{
+    position: absolute; 
+    top: 95px; 
+    left: 35px; 
+    padding: 5px; 
   }
-  .carredeux{
-  width:30px;
-  height:30px;
-  background:#FF8C00;
+  nav#Cadastres{
+    position: absolute; 
+    top: 119px;
+     left: 35px; 
+     padding: 5px; 
   }
-  .carretrois{
-  width:30px;
-  height:30px;
-  background:#808080;
-  }  
-  .navbar-brand {
-  width:230px;
-  margin:0;
-  }
+
+nav#layers{
+  position: absolute; 
+  top: 65px; 
+  left: 15px; 
+  padding: 5px; 
+}
+
+div#search{
+  position:absolute; 
+  top: 5px;
+  right: 10px;
+  padding: 5px; 
+}
+
+button#rechercher.btn.btn-dark{
+  width: 120px;
+}
   
+  div#card  .card-header{
+    
+    background-color: #718ca5;
+  }
+
+  div#card  .card-body{
+    
+    background-color: #a1bcd6;
+  }
+
+  
+
+
   /* ------------------------------------------------------------------ */
   /* ------------------------------------------------------------------ */
   .container-fluid{
@@ -126,19 +145,56 @@
   }
 
   a#rechercher{
-    margin-top: 230px;
+    position: absolute;
+    top: 90%;
+    left: 0px;
     border-top: none; 
+    display: inline-block;
+    /* height: 32px; */
+    width: 100%;
     color: rgb(255, 255, 255);
+  }
+  a#reduire{
+    color: black;
+    padding: 157px;
+    
   }
   /* ------------------------------------------------------------------ */
   /* MEDIA */
   /* ------------------------------------------------------------------ */
   
-  @media (max-width: 1300px){
+  @media (max-width: 1280px){
   div#card {
-      LEFT: 940px;
+      LEFT: 840px;
       top: 130px;
+      width: 30%;
   }
+  a#reduire{
+    color: black;
+    padding: 195px;
+    
+  }
+  div#card  .card-header{
+    
+    background-color: #718ca5;
+  }
+
+  div#card  .card-body{
+    
+    background-color: #a1bcd6;
+  }
+
+  a#rechercher{
+    position: absolute;
+    top: 84%;
+    left: 0px;
+    border-top: none; 
+    display: inline-block;
+    /* height: 32px; */
+    width: 100%;
+    color: rgb(255, 255, 255);
+  }
+
 
 }
   /* ------------------------------------------------------------------ */
@@ -152,7 +208,7 @@
   
   }
   
- 
+
   .menu-content{
   display: block; /*Afficher les éléments du menu l'un en dessous de l'autre*/
   }
@@ -181,7 +237,10 @@
   #hamburger{
 	display: none;
   }
-  
+  /* a#reduire{
+   color: black;
+    padding: 155px;
+  } */
   .card{
     width: 18%;
     position: absolute;

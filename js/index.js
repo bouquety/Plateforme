@@ -96,7 +96,7 @@ color: couleur(property)
 });
 // déclaration de la carte
 var map = new Map({
-  layers: [baseLayer,Terrain,foncier2,satellite,IGN,GPU],
+  layers: [baseLayer,Terrain,satellite,foncier2,IGN,GPU],
   target: 'map',
   // container: 'map',
   renderer:'canvas',
@@ -160,13 +160,24 @@ $('input#Cadastre').click(function(){
 
 ///////////////////////////////////////////////////////////////// Affichage Nature ///////////////////////////////////////////////////////////////////
 //Interaction avec la carte
+
+
+
+
+
+$("#reduire").click(function(e){
+  e.preventDefault();
+  $("#card").fadeOut("slow");
+  var etat = document.getElementById('card').style.display;
+etat = "";
+console.log(etat)
+});
 map.on("click", function (evt) {
   map.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
     var etat = document.getElementById('card').style.display;
-    if(etat!="none"){
-
-    document.getElementById('card').style.display="inline";
- 
+    console.log(etat)
+    if(etat=="" || etat=="none"){
+      $("#card").fadeIn("slow"); 
     }
     
     // Création de la liste de nature des parcelles 

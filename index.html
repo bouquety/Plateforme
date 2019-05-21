@@ -42,7 +42,7 @@
 
   <!-- Menu vertical -->
     <div class="col my-sidebar">
-<p>Yvetot</p>
+<p style="color:white;"> Yvetot</p>
       <button class="navbar-toggler toggler-example" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1"
       aria-controls="navbarSupportedContent1" aria-expanded="false" aria-label="Toggle navigation" id="hamburger"><span class="dark-blue-text"><i class="fas fa-arrows-alt-v"></i></span></button>      
           
@@ -84,8 +84,8 @@
         <div class="col-lg-12 col-md-12 col-sm-12">
           <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.2.0/build/ol.js"></script>
           <div id="map" class="map" ></div>
-          <div id="search" style="position: absolute; top: 5px; right: 10px; padding: 5px; ">
-      <input type="text" placeholder="Rechercher un territoire" style="width: 200px">
+          <div id="search">
+      <input type="text" placeholder="Rechercher un territoire" >
       <button type="button" class="btn btn-dark" id="rechercher">Rechercher</button>
       <form class="form-inline" >
         <label>Mode édition : &nbsp;</label>
@@ -95,7 +95,7 @@
       </select>
       </form> 
       </div>
-      <nav id="layers" style="position: absolute; top: 65px; left: 15px; padding: 5px; ">
+      <nav id="layers" >
         <select class="fonddecarte">
           <option name="layer" value="baseLayer" selected>OSM</option>
           <option name="layer" value="Terrain"  > Stamen</option>
@@ -104,10 +104,10 @@
           <!-- <option name="layer" value="GPU"  > GPU </option> -->
             </select>
       </nav>
-      <nav  style="position: absolute; top: 95px; left: 35px; padding: 5px; ">
+      <nav  id ="Fonciers">
       <input type="checkbox"  id="Foncier" value="Foncier" checked> Foncier
             </nav>
-            <nav  style="position: absolute; top: 119px; left: 35px; padding: 5px; ">
+            <nav  id="Cadastres">
               <input type="checkbox"  id="Cadastre" value="Cadastre"> Cadastre
                     </nav>
             
@@ -122,12 +122,12 @@
                 <form  id="Modification">
                     <div class="card" id="card">
     <div class="card-header">
-        Infos parcellaire
+        Infos parcellaire  <a href="#" id="reduire">  <i class="far fa-times-circle"></i> </a>
       </div>
     <div class="card-body">
       <p class="card-text">Nature</p>
       <select class="form-control" id="natureparcelle" name="NatureParcelle">
-          <option selected="selected"> Cliquer sur une Parcelle pour visualiser sa Nature</option>
+          <option selected="selected"> Cliquer sur une Parcelle pour visualiser sa Nature</option>                                                          
           <option > Cliquer sur une Parcelle pour visualiser sa Nature</option>
           <option > Cliquer sur une Parcelle pour visualiser sa Nature</option>
 </select>
@@ -138,11 +138,11 @@
                           <a> Surface </a>
                           <textarea class="form-control" rows="1" name="ces" id="ces" type="text" placeholder="Cliquer sur une parcelle pour visualier la localisation"  readonly></textarea>
                           <br>
-                          <a style="color:white"> Id_Parc  </a>
+                          <a> Id_Parc  </a>
               <textarea class="form-control" rows="1" name="Id_Parc" id="id_parc" type="text" placeholder="Cliquer sur une parcelle pour visualier le nombre de logement" readonly></textarea>
 <br>
- <button type="submit" class="btn btn-primary" id="envoi">Modifier</button>
-                <button type="submit" class="btn btn-primary" id="ajout">Ajouter</button>
+ <button type="submit" class="btn btn-light" id="envoi">Modifier</button>
+                <button type="submit" class="btn btn-light" id="ajout">Ajouter</button>
                 <button type="button" class="btn btn-danger" id="suppr">Supprimer</button>    
               </div>
   </div>
@@ -170,8 +170,5 @@
   
 
 <script type="text/javascript" src="js/index.js"></script>
-
-
-
 </body>
 </html>
