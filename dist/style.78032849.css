@@ -155,7 +155,7 @@ button#rechercher.btn.btn-dark{
     color: rgb(255, 255, 255);
   }
   a#reduire{
-    color: black;
+    color: red;
     padding: 157px;
     
   }
@@ -170,13 +170,13 @@ button#rechercher.btn.btn-dark{
       width: 30%;
   }
   a#reduire{
-    color: black;
+    color: red;
     padding: 195px;
     
   }
   div#card  .card-header{
     
-    background-color: #718ca5;
+    background-color: #92b3d1;
   }
 
   div#card  .card-body{

@@ -2,56 +2,202 @@
 /* REGLAGES DE BASE */
 /* ------------------------------------------------------------------ */
 
-
 * {
-    margin: 0;
-    padding: 0!;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0!;
+	box-sizing: border-box;
   }
   
   /* ------------------------------------------------------------------ */
   /* ------------------------------------------------------------------ */
-  
-  
+ 
   
   /* ------------------------------------------------------------------ */
   /* HEADER */
   /* ------------------------------------------------------------------ */
   .navbar-light{
   width: 100%;
-  background-color: rgba(191, 193, 191, 0.2);
-  }
+  box-shadow: 1px 1px 5px #555;
+  height: 45px;
   
-  .form-control {
-  width: 350px;
   }
-  
-  .form-control i {
-    display: inline-block  
+  .navbar-nav i {
+  width: 1em;
   }
-  #resultat{
-  color: rgb(255, 255, 255);
+  .nav.nav-tabs {
+	float: left;
+	display: block;
+	margin-right: 10px;
+	border-bottom: 0;
+	padding-right: 15px;
   }
   
   /* ------------------------------------------------------------------ */
   /*FORM                                                                */
   /* ------------------------------------------------------------------ */
-  
-  body{
-    background-image: linear-gradient(
-      rgba(22, 22, 22, 0.8),
-      rgba(22, 22, 22, 0.8)
-  
-      ),
-      url(img/fond.jpg);
-         background-size: cover;
-         background-position: center;
-         height: 100vh;
-         
+  .map{
+  height: 100vh;
+  width: 100%;
   }
-  .card-body{
-    background-color:rgba(173,173,173,	 1)
+  /* ------------------------------------------------------------------ */
+  /* MENU VERTICAL */
+  /* ------------------------------------------------------------------ */
+  .container{
+  /*Création dimension du container qui contient la sidebar*/
+  width: 100%; 
+  height: 100%;
+  margin-left: -15px; /*Pour coller le menu à gauche de l'écran*/
+  }
+  
+  .my-sidebar {
+  /*Dimension de la sidebar*/
+  position: fixed; /*Fixer le menu vertical*/
+  width: 51px; /*On définis la longueur */
+  height: 100%; /*Et la hauteur */
+  background-color: #88a2bb;
+  padding: 0;
+  border-radius: 5px;
+  margin: 0;
+  margin-top : 10px;
+  }
+  .my-sidebar a {
+   /*Afficher les éléments l'un en dessous de l'autre*/
+  /*color: #626567*/
+  color: rgb(255, 255, 255);
+  }
+  .navbar-nav{
+  padding: 0;
+  margin: 0;
+  }
+  
+  
+  /* ------------------------------------------------------------------ */
+  /* ------------------------------------------------------------------ */
+  .nav-tabs .nav-link.active {
+	background-color: rgba(59, 59, 59, 0.158);
+  }
+	.nav-tabs .nav-link:hover{
+	  background-color: rgba(59, 59, 59, 0.158);
+    }
+    
+
+	  .nav-tabs .nav-link{
+		margin : 0;
+		width: 100%;
+		line-height: 40px;
+		border-top : 3px solid #f8f9fa
+		} 
+		
+
+
+
+
+  /* ------------------------------------------------------------------ */
+  /* ------------------------------------------------------------------ */
+  .container-fluid{
+  height: 100%;
+  
+  }
+
+  a#rechercher{
+    position: absolute;
+    top: 90%;
+    left: 0px;
+    border-top: none; 
+    display: inline-block;
+    /* height: 32px; */
+    width: 100%;
+    color: rgb(255, 255, 255);
+  }
+  
+  /* ------------------------------------------------------------------ */
+  /* MEDIA */
+  /* ------------------------------------------------------------------ */
+  
+  @media (max-width: 1280px){
+
+
+
+
+  a#rechercher{
+    position: absolute;
+    top: 84%;
+    left: 0px;
+    border-top: none; 
+    display: inline-block;
+    /* height: 32px; */
+    width: 100%;
+    color: rgb(255, 255, 255);
+  }
+
+
+}
+  /* ------------------------------------------------------------------ */
+  /* MEDIA */
+  /* ------------------------------------------------------------------ */
+  
+  @media (max-width: 767px) {  /*A partir de 767 on fais : */
+  .my-sidebar {
+	position: relative; /*Pour que le menu s'affiche bien entre le header et la carte*/
+	width: 100%;
+  
   }
   
 
+  .menu-content{
+  display: block; /*Afficher les éléments du menu l'un en dessous de l'autre*/
+  }
+  
+  .container{
+	width: 100%;
+  
+  }
+  #hamburger{
+	color: rgb(33, 67, 90);
+  }
+  .my-sidebar #logo{
+	display: none;
+  }
+  
+  .brand {
+	text-align: left !important;  /*Positionner le texte à gauche*/
+	font-size: 14px; /*Taille du texte*/
+	line-height: 50px !important; /*Hauteur du menu*/
+  }
+  }
+  
+  
+  
+  @media (max-width: 1920px) { /*Gigantesque écran : */
+  #hamburger{
+	display: none;
+  }
+  /* a#reduire{
+   color: black;
+    padding: 155px;
+  } */
  
+  .content{
+  
+	left: 0;
+	margin-left: 39px; /*Positionnement de la carte et de la légende*/
+	min-height: 100%;
+	margin-top : 10px;
+  }
+  
+  .collapse:not(.show) {
+	display: block!important ; /*On oblige l'affichage du contenu du menu */
+  }
+  
+  }
+  @media (min-width: 576px){
+  .container {
+	 max-width: 900px!important; 
+  }
+  }
+  /* ------------------------------------------------------------------ */
+  /* ------------------------------------------------------------------ */
+  /* ------------------------------------------------------------------ */
+  /* ------------------------------------------------------------------ */
+  
+  
