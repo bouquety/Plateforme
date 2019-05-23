@@ -58792,7 +58792,7 @@ function test(datas) {
 
         $("#envoi").click(function (e) {
           e.preventDefault();
-          $.post('http://192.168.0.99:8080/json/modif', {
+          $.post('http://35.181.76.127:8080/json/modif', {
             natureparcelle: $("#natureparcelle").val(),
             logement: $("#logement").val(),
             id_parc: $("#id_parc").val(),
@@ -58862,7 +58862,7 @@ function test(datas) {
           e.preventDefault();
 
           if (confirm("Êtes-vous sûr de vouloir ajouter cette parcelle ?")) {
-            $.post('http://192.168.0.99:8080/json/ajout', {
+            $.post('http://35.181.76.127:8080/json/ajout', {
               id_parc: $("#id_parc").val(),
               nature: $("#natureparcelle").val(),
               logement: $("#logement").val(),
@@ -58926,7 +58926,7 @@ function test(datas) {
     e.preventDefault();
 
     if (confirm("Êtes-vous sûr de vouloir supprimer cette parcelle ?")) {
-      $.post('http://192.168.0.99:8080/json/suppr', {
+      $.post('http://35.181.76.127:8080/json/suppr', {
         id_parc: $("#id_parc").val()
       }, function (data) {
         if (data == 'Success') {
@@ -58965,13 +58965,13 @@ function loadJSON(callback) {
     }
   };
 
-  xhr.open("GET", "http://192.168.0.99:8080/json/nature", true); // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.open("GET", "http://35.181.76.127:8080/json/nature", true); // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
   xhr.send(null);
 }
 
 window.onload = loadJSON(test);
-},{"ol/Map.js":"node_modules/ol/Map.js","ol/View.js":"node_modules/ol/View.js","ol/format/GeoJSON.js":"node_modules/ol/format/GeoJSON.js","ol/interaction.js":"node_modules/ol/interaction.js","ol/layer.js":"node_modules/ol/layer.js","ol/source.js":"node_modules/ol/source.js","ol/style.js":"node_modules/ol/style.js","ol/interaction/Select.js":"node_modules/ol/interaction/Select.js","ol/proj.js":"node_modules/ol/proj.js","ol/source/TileWMS.js":"node_modules/ol/source/TileWMS.js","ol/source/XYZ":"node_modules/ol/source/XYZ.js"}],"../../../Users/Alain/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"ol/Map.js":"node_modules/ol/Map.js","ol/View.js":"node_modules/ol/View.js","ol/format/GeoJSON.js":"node_modules/ol/format/GeoJSON.js","ol/interaction.js":"node_modules/ol/interaction.js","ol/layer.js":"node_modules/ol/layer.js","ol/source.js":"node_modules/ol/source.js","ol/style.js":"node_modules/ol/style.js","ol/interaction/Select.js":"node_modules/ol/interaction/Select.js","ol/proj.js":"node_modules/ol/proj.js","ol/source/TileWMS.js":"node_modules/ol/source/TileWMS.js","ol/source/XYZ":"node_modules/ol/source/XYZ.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -58999,7 +58999,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51569" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54512" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -59174,5 +59174,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../Users/Alain/AppData/Roaming/npm/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/index.js"], null)
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","js/index.js"], null)
 //# sourceMappingURL=/js.00a46daa.js.map
