@@ -222,7 +222,7 @@ $("#envoi").click(function(e){
   e.preventDefault();
   
         $.post(
-            'http://35.181.76.127:8080/json/modif', 
+            'https://35.181.76.127:8080/json/modif', 
             {
                 natureparcelle : $("#natureparcelle").val(),
                 logement : $("#logement").val(),  
@@ -303,7 +303,7 @@ var typeSelect = document.getElementById('type')
     if (confirm("Êtes-vous sûr de vouloir ajouter cette parcelle ?")) 
     {
       $.post(
-        'http://35.181.76.127:8080/json/ajout', 
+        'https://35.181.76.127:8080/json/ajout', 
         {
           id_parc : $("#id_parc").val(),
           nature : $("#natureparcelle").val(),
@@ -369,7 +369,7 @@ $("#rechercher").click(function(e){
   if (confirm("Êtes-vous sûr de vouloir supprimer cette parcelle ?")) 
   {
     $.post(
-      'http://35.181.76.127:8080/json/suppr', 
+      'https://35.181.76.127:8080/json/suppr', 
       {
           id_parc : $("#id_parc").val(),
       },
