@@ -94,7 +94,7 @@ $champs.keyup(function(){
         e.preventDefault();
  
         $.post(
-            'http://192.168.0.99:8081/json/login', 
+            'https://192.168.0.99:8080/json/login', 
             {
                 Login : $("#Login").val(), 
                 motdepasse : $("#motdepasse").val()

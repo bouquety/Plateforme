@@ -58639,6 +58639,13 @@ function test(datas) {
     name: 'mapbox',
     visible: false
   });
+  var vide = new _layer.Tile({
+    source: new _XYZ.default({
+      url: 'https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYWJvdXF1ZX5IiwiYSI6ImNqdGE5bTRuaDA4a3Y0M2w4OGRxZDdoajQifQ.ddEVnvpYjmAEQbfCw43p1Q'
+    }),
+    name: 'vide',
+    visible: false
+  });
   var IGN = new _layer.Tile({
     source: new _TileWMS.default({
       url: 'https://inspire.cadastre.gouv.fr/scpc/76758.wms',
@@ -58686,7 +58693,7 @@ function test(datas) {
   }); // déclaration de la carte
 
   var map = new _Map.default({
-    layers: [baseLayer, Terrain, satellite, foncier2, IGN, GPU],
+    layers: [baseLayer, Terrain, satellite, foncier2, IGN, GPU, vide],
     target: 'map',
     // container: 'map',
     renderer: 'canvas',
@@ -58755,7 +58762,7 @@ function test(datas) {
       } // Création de la liste de nature des parcelles 
 
 
-      var Nature = ['Zone AU', 'Parcelle bâtie', 'Parcelle non bâtie']; // On initialise notre compteur à 0
+      var Nature = ['Parcelle bâtie', 'Parcelle non bâtie', 'Zone AU']; // On initialise notre compteur à 0
       // On assigne la nature de la parcelle cliqué par l'utilisateur dans la variable temp_Nature
 
       var temp_Nature = feature.get("nature");
@@ -58764,6 +58771,9 @@ function test(datas) {
         var l = 0;
         Nature.forEach(function (item, index, array) {
           document.getElementsByTagName('select')[2].options[l].innerHTML = item;
+          document.getElementById("logement").value = "Veuillez rentrez un nombre de logement ";
+          document.getElementById("ces").innerHTML = " Inaccessible ";
+          document.getElementById("id_parc").innerHTML = " Inaccessible ";
           l = l + 1;
         });
       } else {
@@ -58999,7 +59009,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54623" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51598" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

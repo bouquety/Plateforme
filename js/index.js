@@ -50,6 +50,15 @@ var satellite =  new TileLayer({
   visible : false,
 });
 
+var vide =  new TileLayer({
+  source: new XYZ({
+    url: 'https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYWJvdXF1ZX5IiwiYSI6ImNqdGE5bTRuaDA4a3Y0M2w4OGRxZDdoajQifQ.ddEVnvpYjmAEQbfCw43p1Q'
+  }),
+  name: 'vide',
+  visible : false,
+});
+
+
 var IGN = new TileLayer({
   source: new TileWMS({
     url: 'https://inspire.cadastre.gouv.fr/scpc/76758.wms',
@@ -96,7 +105,7 @@ color: couleur(property)
 });
 // déclaration de la carte
 var map = new Map({
-  layers: [baseLayer,Terrain,satellite,foncier2,IGN,GPU],
+  layers: [baseLayer,Terrain,satellite,foncier2,IGN,GPU,vide],
   target: 'map',
   // container: 'map',
   renderer:'canvas',
@@ -181,7 +190,7 @@ map.on("click", function (evt) {
     }
     
     // Création de la liste de nature des parcelles 
-    var Nature = ['Zone AU', 'Parcelle bâtie','Parcelle non bâtie'];
+    var Nature = [ 'Parcelle bâtie','Parcelle non bâtie','Zone AU',];
 // On initialise notre compteur à 0
     // On assigne la nature de la parcelle cliqué par l'utilisateur dans la variable temp_Nature
    var temp_Nature =  feature.get("nature");
@@ -189,6 +198,9 @@ map.on("click", function (evt) {
     var l = 0
     Nature.forEach(function(item, index, array) {
       document.getElementsByTagName('select')[2].options[l].innerHTML = (item);
+      document.getElementById("logement").value = ("Veuillez rentrez un nombre de logement ");
+      document.getElementById("ces").innerHTML = (" Inaccessible ");
+      document.getElementById("id_parc").innerHTML = (" Inaccessible ");
       l= l+1
     })
    }
