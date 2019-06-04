@@ -58975,7 +58975,7 @@ function loadJSON(callback) {
     }
   };
 
-  xhr.open("GET", "https://35.181.76.127:8081/json/nature", true); // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.open("GET", "https://35.181.76.127:8082/json/nature", true); // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
   xhr.send(null);
 }
@@ -59009,7 +59009,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51598" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55948" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
