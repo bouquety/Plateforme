@@ -5,9 +5,9 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel form.html",
-    "build": "parcel build --public-url . form.html",
-    "serve": "parcel serve index.html",
+    "start": "parcel index.html",
+    "build": "parcel build --public-url . index.html",
+    "serve": "parcel serve form.html",
     "dev": "parcel visualiser.html"
   },
   "author": "",
