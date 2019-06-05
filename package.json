@@ -5,7 +5,7 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel index.html",
+    "start": "parcel form.html",
     "build": "parcel build --public-url . index.html",
     "serve": "parcel serve index.html",
     "dev": "parcel visualiser.html"

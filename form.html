@@ -94,7 +94,7 @@ $champs.keyup(function(){
         e.preventDefault();
  
         $.post(
-            'https://192.168.0.99:8080/json/login', 
+            'https://35.181.76.127:8082/json/login', 
             {
                 Login : $("#Login").val(), 
                 motdepasse : $("#motdepasse").val()
@@ -105,7 +105,8 @@ $champs.keyup(function(){
                 if(data == 'Success'){
                      // Le membre est connecté. Ajoutons lui un message dans la page HTML.
                      console.log(data);
-                     $("#resultat").html("<a  style= 'color:white' href='visualiser.html'> Suitteeeee</a>");
+                     window.location.href = 'index.html';
+
 
                 }
                 else{
