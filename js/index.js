@@ -423,7 +423,7 @@ if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
 callback(this.responseText);
 }
 };
-xhr.open("GET", "https://35.181.76.127:443/json/nature", true);
+xhr.open("GET", "https://35.181.76.127:8082/json/nature", true);
 // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 xhr.send(null);
 }
